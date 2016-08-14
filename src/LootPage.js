@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Card, CardHeader, CardText, CardMedia, CardActions, CardTitle } from 'material-ui/Card';
 import AppBar from 'material-ui/AppBar';
@@ -14,7 +14,7 @@ import Form from 'muicss/lib/react/form';
 
 import './App.css';
 
-import t from 'tcomb-form'
+import t from 'tcomb-form';
 const TForm = t.form.Form;
 
 const TeamType = t.enums.of(['Valor', 'Instinct', 'Mystic']);
@@ -98,7 +98,7 @@ const FormTemplate = TForm.templates.struct.clone({
   }
 });
 
-class LootPage extends Component {
+class LootPage extends React.Component {
   constructor(props){
     super(props);
 

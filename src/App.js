@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import AppBar from 'material-ui/AppBar';
 
@@ -6,7 +6,7 @@ import './App.css';
 
 import CalculatorPage from './CalculatorPage';
 
-class App extends Component {
+class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {};

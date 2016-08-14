@@ -1,32 +1,33 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { Card, CardHeader, CardText, CardMedia} from 'material-ui/Card';
+import Card from 'material-ui/Card/Card';
+import CardHeader from 'material-ui/Card/CardHeader';
+import CardText from 'material-ui/Card/CardMedia';
+import CardMedia from 'material-ui/Card/CardMedia';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import {
   amber500,
   green500
 } from 'material-ui/styles/colors';
 
-import {
-  PolarGrid,
-  Radar,
-  RadarChart,
-  Legend,
-  Tooltip,
-  PolarAngleAxis,
-  PolarRadiusAxis
-} from 'recharts';
+import RadarChart from 'recharts/lib/chart/RadarChart';
+import Radar from 'recharts/lib/polar/Radar';
+import Tooltip from 'recharts/lib/component/Tooltip';
+import Legend from 'recharts/lib/component/Legend';
+import PolarGrid from 'recharts/lib/polar/PolarGrid';
+import PolarAngleAxis from 'recharts/lib/polar/PolarAngleAxis';
+import PolarRadiusAxis from 'recharts/lib/polar/PolarRadiusAxis';
 
 import { padLeft } from '../util/string-utils';
 
-export default class PokemonIVItem extends Component {
+export default class PokemonIVItem extends React.Component {
 
   shouldComponentUpdate(nextProps){
-    return !_.isEqual(this.props.pokemon, nextProps.pokemon);
+    return !isEqual(this.props.pokemon, nextProps.pokemon);
   }
 
   render() {

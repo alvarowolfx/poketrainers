@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import t from 'tcomb-form'
-const TForm = t.form.Form;
+import t from 'tcomb-form';
+const Form = t.form.Form;
 
 import SelectFieldTemplate from '../form/MaterialUISelectFieldTemplate';
 import AutoCompleteFieldTemplate from '../form/MaterialUIAutocompleteFieldTemplate';
@@ -27,7 +27,7 @@ const PokemonFormSchema = t.struct({
   dust: DustType
 });
 
-const FormTemplate = TForm.templates.struct.clone({
+const FormTemplate = Form.templates.struct.clone({
   renderFieldset: (children, locals) => {
     //{children.map( (child,i) => (<div key={i}>{child}</div>) )}
     return (
@@ -38,7 +38,7 @@ const FormTemplate = TForm.templates.struct.clone({
   }
 });
 
-export default class FormIVCalculator extends Component {
+export default class FormIVCalculator extends React.Component {
 
   render() {
     let options = {
@@ -66,7 +66,7 @@ export default class FormIVCalculator extends Component {
     };
     return (
       <div className="form-calculator">
-        <TForm ref="form"
+        <Form ref="form"
           type={PokemonFormSchema}
           options={options}
           value={this.props.form}

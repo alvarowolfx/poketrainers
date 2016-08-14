@@ -1,8 +1,8 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import PokemonIVItem from './PokemonIVItem';
 
-export default class PokemonIVList extends Component {
+export default class PokemonIVList extends React.Component {
 
   render() {
     let { pokemons } = this.props;
