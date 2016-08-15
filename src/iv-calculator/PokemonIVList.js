@@ -10,7 +10,7 @@ export default class PokemonIVList extends React.Component {
       <div className="pkm-list">
         {pokemons.map( (p,i) => {
             return <PokemonIVItem key={i} pokemon={p}
-              onRemovePress={i > 0 ? () => this.props.onRemove(i-1, p) : null}/>;
+              onRemovePress={() => this.props.onRemove(i, p)}/>;
         })}
       </div>
     );

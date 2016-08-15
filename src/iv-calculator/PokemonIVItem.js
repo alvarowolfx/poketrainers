@@ -3,10 +3,11 @@ import React from 'react';
 
 import Card from 'material-ui/Card/Card';
 import CardHeader from 'material-ui/Card/CardHeader';
-import CardText from 'material-ui/Card/CardMedia';
 import CardMedia from 'material-ui/Card/CardMedia';
+import CardTitle from 'material-ui/Card/CardTitle';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
+import ContentEdit from 'material-ui/svg-icons/content/create';
 import isEqual from 'lodash/isEqual';
 
 import {
@@ -31,21 +32,23 @@ export default class PokemonIVItem extends React.Component {
   }
 
   render() {
-    let { pokemon, chartData, result } = this.props.pokemon;
+    let { chartData, pokemon, grade, perfection, ivs } = this.props.pokemon.resume;
+    let { cp, hp } = this.props.pokemon.form;
     let pokemonId = padLeft(pokemon.id,3);
     let avatar = `https://boost-rankedboost.netdna-ssl.com/wp-content//themes/RB2/riot/poksimages/pokemons/${pokemonId}.png`;
 
-    if(!result.grade || result.grade === 'Unknown'){
+    if(!grade || grade === 'Unknown'){
       return (
         <Card className="pkm-list-item">
           <CardHeader title={`#${pokemon.id} ${pokemon.name}`}
             avatar={avatar}/>
-          <CardText>
+          <CardTitle>
             <h3>Nenhum resultado encontrado</h3>
-          </CardText>
+          </CardTitle>
         </Card>
       );
     }
+    let gradeLetter = grade.averageGrade.letter;
     return (
       <Card className="pkm-list-item">
         {this.props.onRemovePress &&
@@ -54,12 +57,14 @@ export default class PokemonIVItem extends React.Component {
             <ContentRemove />
           </FloatingActionButton>
         }
+        <div className={`pkm-list-item-rank pkm-list-item-rank-${gradeLetter.toLowerCase()}`}>
+          {gradeLetter}
+        </div>
         <CardHeader title={`#${pokemon.id} ${pokemon.name}`}
-          //subtitle={'Nível máximo : '+ result.grade.maxGrade.letter}
-          subtitle="785~890 CP"
+          subtitle={`${cp}CP / ${hp}HP`}
           avatar={avatar}/>
         <CardMedia className="pkm-list-item-body">
-          <RadarChart cx={100} width={200} height={180} outerRadius={70} data={chartData}>
+          <RadarChart cx={100} cy={90} width={200} height={150} outerRadius={70} data={chartData}>
             <Radar name="Pior" dataKey="worst" stroke={amber500} fill={amber500} fillOpacity={0.6} />
             <Radar name="Melhor" dataKey="best" stroke={green500} fill={green500} fillOpacity={0.6} />
             <PolarGrid />
@@ -69,6 +74,10 @@ export default class PokemonIVItem extends React.Component {
             <PolarRadiusAxis angle={30} domain={[0, 15]} />
           </RadarChart>
         </CardMedia>
+        <CardTitle>
+          Perfeição: {perfection.worst}% a {perfection.best}% <br/>
+          {ivs.count} IVs encontrado{ ivs.count > 0 ? 's' : ''}
+        </CardTitle>
       </Card>
     );
   }

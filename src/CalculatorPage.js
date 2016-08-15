@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 import { Card, CardHeader, CardActions } from 'material-ui/Card';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
-import * as ivCalculator from 'pokemon-go-iv-calculator';
-
-import { generateChartData } from './util/pokemon-utils';
+import { generatePokemonResume } from './util/pokemon-utils';
 
 import PokemonIVList from './iv-calculator/PokemonIVList';
+import PokemonIVItem from './iv-calculator/PokemonIVItem';
 import FormIVCalculator from './iv-calculator/FormIVCalculator';
 
 const POKEMON_EXAMPLE = {
@@ -30,8 +29,7 @@ class CalculatorPage extends Component {
     this.state = {
       currentPokemon: {
         form,
-        result:{},
-        pokemon: {}
+        resume:{}
       },
       pokemons: []
     };
@@ -44,8 +42,8 @@ class CalculatorPage extends Component {
   }
 
   addPokemon(){
-    let { currentPokemon: { result }  } = this.state;
-    if(result.ivs.length === 0){
+    let { currentPokemon: { resume }  } = this.state;
+    if(resume.chartData.length === 0){
       return;
     }
 
@@ -54,9 +52,17 @@ class CalculatorPage extends Component {
     };
 
     let pokemons = [newPokemon,...this.state.pokemons];
+    /*
     let newForm = {
       ...POKEMON_EXAMPLE
     };
+    */
+    let newForm = {
+      name: 'Bulbasaur',
+      cp: 0,
+      hp: 0,
+      dust: '400'
+    }
     this.setState({
       currentPokemon: {
         form: newForm,
@@ -81,30 +87,27 @@ class CalculatorPage extends Component {
   }
 
   onFormChange(form){
-    let pokemon = pokemonByName(form.name);
+
     let isValid = false;
-    let result = ivCalculator.evaluate(form.name,
+    let resume = generatePokemonResume(form.name,
                   parseInt(form.cp,10),
                   parseInt(form.hp,10),
                   parseInt(form.dust,10));
-    let chartData = generateChartData(result);
-    if(chartData.length > 0){
+    if(resume.chartData.length > 0){
       isValid = true;
     }
     form.isValid = isValid;
     this.setState({
       currentPokemon: {
         form,
-        result,
-        pokemon,
-        chartData,
+        resume
       }
     })
   }
 
   render() {
     let { currentPokemon, pokemons } = this.state;
-    let cards = [{...currentPokemon}, ...pokemons];
+    let resume = currentPokemon.resume;
     return (
       <div className="calculator-container">
         <Card>
@@ -121,8 +124,70 @@ class CalculatorPage extends Component {
               onTouchTap={() => this.removeAll()}/>
           </CardActions>
         </Card>
-        <PokemonIVList pokemons={cards}
-          onRemove={(i, pokemon) => this.onRemove(i,pokemon)} />
+        <br/>
+        <div className="calculator-pkm-resume">
+          <Card className="calculator-pkm-resume-table">
+            <CardHeader
+              title="Possibilidades"
+              subtitle="Saiba se seu pokemon tem potencial"
+            />
+            <PokemonIVItem pokemon={currentPokemon}/>
+            {resume.chartData.length > 0 &&
+              <Table selectable={false}>
+                <TableHeader
+                  displaySelectAll={false}
+                  adjustForCheckbox={false}
+                  enableSelectAll={false}>
+                  <TableRow>
+                    <TableHeaderColumn>{resume.pokemon.name}</TableHeaderColumn>
+                    <TableHeaderColumn>Attack</TableHeaderColumn>
+                    <TableHeaderColumn>Defense</TableHeaderColumn>
+                    <TableHeaderColumn>Stamina</TableHeaderColumn>
+                    <TableHeaderColumn>CP</TableHeaderColumn>
+                    <TableHeaderColumn>HP</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                  <TableRow>
+                    <TableRowColumn>Melhor Possível</TableRowColumn>
+                    <TableRowColumn>15</TableRowColumn>
+                    <TableRowColumn>15</TableRowColumn>
+                    <TableRowColumn>15</TableRowColumn>
+                    <TableRowColumn></TableRowColumn>
+                    <TableRowColumn></TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>Seu melhor</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.attackIV}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.defenseIV}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.staminaIV}</TableRowColumn>
+                    <TableRowColumn>{currentPokemon.form.cp}</TableRowColumn>
+                    <TableRowColumn>{currentPokemon.form.hp}</TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>Seu pior</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.attackIV}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.defenseIV}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.staminaIV}</TableRowColumn>
+                    <TableRowColumn>{currentPokemon.form.cp}</TableRowColumn>
+                    <TableRowColumn>{currentPokemon.form.hp}</TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>Pior Possível</TableRowColumn>
+                    <TableRowColumn>0</TableRowColumn>
+                    <TableRowColumn>0</TableRowColumn>
+                    <TableRowColumn>0</TableRowColumn>
+                    <TableRowColumn></TableRowColumn>
+                    <TableRowColumn></TableRowColumn>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            }
+          </Card>
+          <br/>
+          <PokemonIVList pokemons={pokemons}
+            onRemove={(i, pokemon) => this.onRemove(i,pokemon)} />
+        </div>
       </div>
     );
   }
