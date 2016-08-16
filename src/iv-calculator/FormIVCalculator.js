@@ -7,7 +7,7 @@ import SelectFieldTemplate from '../form/MaterialUISelectFieldTemplate';
 import AutoCompleteFieldTemplate from '../form/MaterialUIAutocompleteFieldTemplate';
 import TextFieldTemplate from '../form/MaterialUITextFieldTemplate';
 
-import pokemons from '../pokemons';
+import pokemons from '../data/pokemons';
 
 const PokemonNameType = t.enums.of(
   pokemons.map( pkm => pkm.name)

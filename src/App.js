@@ -1,4 +1,11 @@
 import React from 'react';
+import ReactGA from 'react-ga';
+
+import Route from 'react-router/lib/Route';
+import Router from 'react-router/lib/Router';
+import withRouter from 'react-router/lib/withRouter';
+import browserHistory from 'react-router/lib/browserHistory';
+import IndexRoute from 'react-router/lib/IndexRoute';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -7,15 +14,18 @@ import GitHubForkRibbon from 'react-github-fork-ribbon';
 
 import './App.css';
 
-import CalculatorPage from './CalculatorPage';
-import EggChartPage from './EggChartPage';
+function logPageView() {
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
+}
+ReactGA.initialize("UA-37452057-7");
+logPageView();
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      open: false,
-      route: 'IVCalculator'
+      open: false
     };
   }
 
@@ -27,20 +37,8 @@ class App extends React.Component {
   }
 
   changeTab(tab){
-    this.setState({
-      route: tab,
-      open: false
-    });
-  }
-
-  renderContent(){
-    let route = this.state.route;
-    if(route === 'IVCalculator'){
-      return <CalculatorPage/>
-    }
-    if(route === 'EggChart'){
-      return <EggChartPage/>
-    }
+    this.props.router.push(tab);
+    this.toggleMenu();
   }
 
   render() {
@@ -53,20 +51,37 @@ class App extends React.Component {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}>
           <AppBar title="Menu" showMenuIconButton={false}/>
-          <MenuItem onTouchTap={() => this.changeTab('IVCalculator')}>
+          <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
             IV Calculator
           </MenuItem>
-          <MenuItem onTouchTap={() => this.changeTab('EggChart')}>
+          <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
             Egg Chart
           </MenuItem>
         </Drawer>
-        <GitHubForkRibbon position="right" color="black">Beta Version</GitHubForkRibbon>
+        <GitHubForkRibbon position="right" color="black">
+          Beta Version
+        </GitHubForkRibbon>
         <div className="app-container">
-          {this.renderContent()}
+          {this.props.children}
         </div>
       </div>
     );
   }
 }
 
-export default App;
+import CalculatorPage from './CalculatorPage';
+import EggChartPage from './EggChartPage';
+
+let AppWithRouter = withRouter(App);
+
+let routes = () => (
+    <Router history={browserHistory} onUpdate={logPageView}>
+        <Route path="/" component={AppWithRouter}>
+            <IndexRoute component={CalculatorPage}/>
+            <Route path="iv-calculator" component={CalculatorPage}/>
+            <Route path="egg-chart" component={EggChartPage}/>
+        </Route>
+    </Router>
+);
+
+export default routes;

@@ -23,7 +23,7 @@ import PolarGrid from 'recharts/lib/polar/PolarGrid';
 import PolarAngleAxis from 'recharts/lib/polar/PolarAngleAxis';
 import PolarRadiusAxis from 'recharts/lib/polar/PolarRadiusAxis';
 
-import { padLeft } from '../util/string-utils';
+import { getPokemonImageUrl } from '../util/pokemon-utils';
 
 export default class PokemonIVItem extends React.Component {
 
@@ -34,8 +34,7 @@ export default class PokemonIVItem extends React.Component {
   render() {
     let { chartData, pokemon, grade, perfection, ivs } = this.props.pokemon.resume;
     let { cp, hp } = this.props.pokemon.form;
-    let pokemonId = padLeft(pokemon.id,3);
-    let avatar = `https://boost-rankedboost.netdna-ssl.com/wp-content//themes/RB2/riot/poksimages/pokemons/${pokemonId}.png`;
+    let avatar = getPokemonImageUrl(pokemon.id);
 
     if(!grade || grade === 'Unknown'){
       return (
@@ -78,6 +77,13 @@ export default class PokemonIVItem extends React.Component {
           Perfeição: {perfection.worst}% a {perfection.best}% <br/>
           {ivs.count} IVs encontrado{ ivs.count > 0 ? 's' : ''}
         </CardTitle>
+        {this.props.onEditPress &&
+          <FloatingActionButton mini zDepth={1}
+            onTouchTap={() => this.props.onEditPress()}
+            style={{float:'right', position: 'absolute', bottom: 8, right: 8}}>
+            <ContentEdit/>
+          </FloatingActionButton>
+        }
       </Card>
     );
   }

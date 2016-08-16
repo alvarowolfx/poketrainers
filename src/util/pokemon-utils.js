@@ -1,7 +1,8 @@
 
 import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
 import * as ivCalculator from 'pokemon-go-iv-calculator';
-
+import { padLeft } from './string-utils';
+ 
 function roundPercent(num){
   return (100*num).toFixed(0);
 }
@@ -50,4 +51,10 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
       count: ivsResults.ivs.length
     }
   }
+}
+
+export function getPokemonImageUrl(id){
+  let pokemonId = padLeft(id,3);
+  let avatar = `https://boost-rankedboost.netdna-ssl.com/wp-content//themes/RB2/riot/poksimages/pokemons/${pokemonId}.png`;
+  return avatar;
 }
