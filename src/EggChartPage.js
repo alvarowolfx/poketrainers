@@ -9,13 +9,6 @@ import { getPokemonImageUrl } from './util/pokemon-utils';
 import eggChart from './data/egg_chart.json';
 const eggIndexes = Object.keys(eggChart);
 
-const styles = {
-  slide: {
-    padding: 10,
-    minHeight: '300px'
-  }
-};
-
 class EggChartPage extends Component {
   constructor(props){
     super(props);
@@ -57,9 +50,9 @@ class EggChartPage extends Component {
           onChangeIndex={(value) => this.handleChange(value)}>
           {eggIndexes.map( (key,i) => {
             return (
-              <Paper key={i} style={styles.slide} zDepth={1}>
+              <Paper key={i} className="egg-chart-slide" zDepth={1}>
                 {eggChart[key].map( pkmId => {
-                  return <img key={pkmId} src={getPokemonImageUrl(pkmId)} height="80px"
+                  return <img key={pkmId} src={getPokemonImageUrl(pkmId)} height="60px"
                     alt={pkmId}/>
                 })}
               </Paper>

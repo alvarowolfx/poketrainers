@@ -133,3 +133,17 @@ body {
     width: 90%;
   }
 }
+
+.egg-chart-slide{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  min-height: 150px;
+}
+
+@media (max-width: 768px) {
+  .egg-chart-slide{
+    min-height: 320px;
+  }
+}
