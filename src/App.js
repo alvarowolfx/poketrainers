@@ -60,6 +60,9 @@ class App extends React.Component {
           <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
             Ovos pokemon
           </MenuItem>
+          <MenuItem onTouchTap={() => this.changeTab('/about')}>
+            Sobre
+          </MenuItem>
         </Drawer>
         <GitHubForkRibbon position="right" color="black">
           Beta Version
@@ -75,6 +78,7 @@ class App extends React.Component {
 import CalculatorPage from './CalculatorPage';
 import EggChartPage from './EggChartPage';
 import CandyCalculatorPage from './CandyCalculatorPage';
+import AboutPage from './AboutPage';
 
 let AppWithRouter = withRouter(App);
 
@@ -85,6 +89,7 @@ let routes = () => (
             <Route path="iv-calculator" component={CalculatorPage}/>
             <Route path="egg-chart" component={EggChartPage}/>
             <Route path="candies-calculator" component={CandyCalculatorPage}/>
+            <Route path="about" component={AboutPage}/>
         </Route>
     </Router>
 );
