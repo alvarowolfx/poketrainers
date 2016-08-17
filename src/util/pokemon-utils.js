@@ -1,13 +1,14 @@
 
-import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
+//import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
 import * as ivCalculator from 'pokemon-go-iv-calculator';
 import { padLeft } from './string-utils';
 
 import pokemonData from '../data/pokemon_game_data.json';
+import levelData from '../data/level_game_data.json';
 
 function findPokemonInGameData(pokemonName){
   let search = pokemonData.filter( p => p.Name === pokemonName)
-  if(search.length > 0){
+  if(search){
     return {
       ...search[0],
       avatar: getPokemonImageUrl(search[0].PkMn)
@@ -17,22 +18,82 @@ function findPokemonInGameData(pokemonName){
   }
 }
 
+function findCpScalarPerLevel(level){
+  let search = levelData.filter( l => l.level === level);
+  if(search){
+    return search[0].cpScalar;
+  }
+  return 0;
+}
+
+function findLevelRangePerDust(dust){
+  let search = levelData.filter( l => l.dust === dust)
+    .map( l => l.level);
+  if(search){
+    return search;
+  }
+  return [];
+}
+
+function calcCP(baseAttack, attackIV, baseDefense, defenseIV, baseStamina, staminaIV, cpScalar){
+  let cp = (baseAttack + attackIV) * Math.sqrt(baseDefense + defenseIV) * Math.sqrt(baseStamina + staminaIV) * Math.pow(cpScalar,2)
+  cp = Math.floor(cp/10);
+  return cp;
+}
+
+function calcHP(baseStamina, staminaIV, cpScalar){
+  return Math.floor((baseStamina + staminaIV) * cpScalar);
+}
+
+function calcPerfection(attackIV, defenseIV, staminaIV){
+  return roundPercent((attackIV + defenseIV + staminaIV)/45);
+}
+
+function calculateStats(pokemonData, attackIV, defenseIV, staminaIV, level){
+  let baseStamina = pokemonData['Base Stamina'];
+  let baseAttack = pokemonData['Base Attack'];
+  let baseDefense = pokemonData['Base Defense'];
+  let cpScalar = findCpScalarPerLevel(level);
+  let maxCpScalar = findCpScalarPerLevel(80);
+  let hp = calcHP(baseStamina, staminaIV, cpScalar);
+  let cp = calcCP(baseAttack, attackIV, baseDefense, defenseIV, baseStamina, staminaIV, cpScalar);
+  let maxCp = calcCP(baseAttack, attackIV, baseDefense, defenseIV, baseStamina, staminaIV, maxCpScalar);
+  let maxHp = calcHP(baseStamina, staminaIV, maxCpScalar);
+  let perfection = calcPerfection(attackIV, defenseIV, staminaIV);
+  return {
+    attackIV,
+    defenseIV,
+    staminaIV,
+    level,
+    perfection,
+    hp,
+    cp,
+    maxCp,
+    maxHp
+  }
+}
+
 function roundPercent(num){
   return (100*num).toFixed(0);
 }
 
 export function generatePokemonResume(pokemonName, cp, hp, dust){
-  let pokemon = pokemonByName(pokemonName);
+  let pokemon = findPokemonInGameData(pokemonName);
+  if(pokemonName === 'Nidoran♀'){
+    pokemonName = 'Nidoran_Female';
+  }
+  if(pokemonName === 'Nidoran♂'){
+    pokemonName = 'Nidoran_Male'
+  }
   let ivsResults = ivCalculator.evaluate(pokemonName,
                 parseInt(cp,10),
                 parseInt(hp,10),
                 parseInt(dust,10));
-
   let best, worst;
   let avgPerfection;
   let perfection = {};
   let chartData = [];
-  if(ivsResults.ivs.length > 0){
+  if(ivsResults.ivs.length){
     let sortedIvs = ivsResults.ivs.sort( (a,b) => b.perfection-a.perfection);
     if(sortedIvs.length > 1){
       best = sortedIvs[0];
@@ -52,16 +113,20 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
       { stat: '💪', best: best.staminaIV, worst: worst.staminaIV }
     ];
   }
+  let lvlRange = findLevelRangePerDust(dust);
+  let bestLvl = lvlRange[lvlRange.length-1];
+  let worstLvl = lvlRange[0];
   return {
     pokemon,
+    lvlRange,
     chartData,
     grade: ivsResults.grade,
     perfection,
     ivs: {
-      best: {},
-      your_best: best,
-      your_worst: worst,
-      worst: {},
+      best: calculateStats(pokemon,15,15,15,bestLvl),
+      your_best: calculateStats(pokemon, best.attackIV, best.defenseIV, best.staminaIV, best.level),
+      your_worst: calculateStats(pokemon, worst.attackIV, worst.defenseIV, worst.staminaIV, worst.level),
+      worst: calculateStats(pokemon,0,0,0,worstLvl),
       count: ivsResults.ivs.length
     }
   }

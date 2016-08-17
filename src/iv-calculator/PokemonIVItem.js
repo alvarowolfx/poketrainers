@@ -23,8 +23,6 @@ import PolarGrid from 'recharts/lib/polar/PolarGrid';
 import PolarAngleAxis from 'recharts/lib/polar/PolarAngleAxis';
 import PolarRadiusAxis from 'recharts/lib/polar/PolarRadiusAxis';
 
-import { getPokemonImageUrl } from '../util/pokemon-utils';
-
 export default class PokemonIVItem extends React.Component {
 
   shouldComponentUpdate(nextProps){
@@ -33,14 +31,22 @@ export default class PokemonIVItem extends React.Component {
 
   render() {
     let { chartData, pokemon, grade, perfection, ivs } = this.props.pokemon.resume;
-    let { cp, hp } = this.props.pokemon.form;
-    let avatar = getPokemonImageUrl(pokemon.id);
+    let { cp, hp, dust } = this.props.pokemon.form;
 
+    let header = (
+      <CardHeader title={`#${pokemon.PkMn} ${pokemon.Name}`}
+        avatar={pokemon.avatar}
+        subtitle={
+          <div>
+            {cp}CP / {hp}HP <br/>
+            {dust} Stardust
+          </div>
+        }/>
+    );
     if(!grade || grade === 'Unknown'){
       return (
         <Card className="pkm-list-item">
-          <CardHeader title={`#${pokemon.id} ${pokemon.name}`}
-            avatar={avatar}/>
+          {header}
           <CardTitle>
             <h3>Nenhum resultado encontrado</h3>
           </CardTitle>
@@ -59,14 +65,7 @@ export default class PokemonIVItem extends React.Component {
         <div className={`pkm-list-item-rank pkm-list-item-rank-${gradeLetter.toLowerCase()}`}>
           {gradeLetter}
         </div>
-        <CardHeader title={`#${pokemon.id} ${pokemon.name}`}
-          subtitle={
-            <div>
-              {cp}CP <br/>
-              {hp}HP
-            </div>
-          }
-          avatar={avatar}/>
+        {header}
         <CardMedia className="pkm-list-item-body">
           <RadarChart cx={100} cy={90} width={200} height={150} outerRadius={70} data={chartData}>
             <Radar name="Pior" dataKey="worst" stroke={amber500} fill={amber500} fillOpacity={0.6} />

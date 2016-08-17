@@ -7,6 +7,13 @@ body {
   height: 100%;
 }
 
+footer {
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 11px;
+}
+
 .app-container{
   margin-left: 2%;
   margin-right: 2%;

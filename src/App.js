@@ -69,6 +69,11 @@ class App extends React.Component {
         </GitHubForkRibbon>
         <div className="app-container">
           {this.props.children}
+          <footer>
+            ©2016 Poke Trainers | All Rights Reserved
+            <br/>
+            Pokémon And All Respective Names are Trademark and © of Nintendo 1996-2016
+          </footer>
         </div>
       </div>
     );

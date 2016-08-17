@@ -6,11 +6,12 @@ const Form = t.form.Form;
 import SelectFieldTemplate from '../form/MaterialUISelectFieldTemplate';
 import AutoCompleteFieldTemplate from '../form/MaterialUIAutocompleteFieldTemplate';
 import TextFieldTemplate from '../form/MaterialUITextFieldTemplate';
+import FormTemplate from '../form/FormTemplate';
 
-import pokemons from '../data/pokemons';
+import pokemons from '../data/pokemon_game_data.json';
 
 const PokemonNameType = t.enums.of(
-  pokemons.map( pkm => pkm.name)
+  pokemons.map( pkm => pkm.Name)
 );
 
 const DustType = t.enums.of([
@@ -25,17 +26,6 @@ const PokemonFormSchema = t.struct({
   cp: t.Number,
   hp: t.Number,
   dust: DustType
-});
-
-const FormTemplate = Form.templates.struct.clone({
-  renderFieldset: (children, locals) => {
-    //{children.map( (child,i) => (<div key={i}>{child}</div>) )}
-    return (
-      <div >
-          {children}
-      </div>
-    )
-  }
 });
 
 export default class FormIVCalculator extends React.Component {
