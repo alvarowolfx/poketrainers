@@ -147,3 +147,22 @@ body {
     min-height: 320px;
   }
 }
+
+.candy-calculator-resume {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .candy-calculator-resume{
+    flex-direction: column;
+  }
+}
+
+.instructions li {
+  list-style: square;
+  margin-left: 15px;
+  margin-bottom: 8px;
+}

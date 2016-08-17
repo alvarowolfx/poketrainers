@@ -1,0 +1,109 @@
+[ {
+    "ID" : 1,
+    "Name": "Normal",
+    "Effective": [],
+    "Not Effective": [ 13, 17 ],
+    "No Effect": [ 14 ]
+}, {
+    "ID" : 2,
+    "Name": "Fire",
+    "Effective": [ 5, 6, 12 ],
+    "Not Effective": [ 2, 3, 13, 15 ],
+    "No Effect": []
+}, {
+    "ID" : 3,
+    "Name": "Water",
+    "Effective": [ 2, 9, 13 ],
+    "Not Effective": [ 3, 5, 15 ],
+    "No Effect": []
+}, {
+    "ID" : 4,
+    "Name": "Electric",
+    "Effective": [ 3, 10 ],
+    "Not Effective": [ 4, 5, 15 ],
+    "No Effect": [ 9 ]
+}, {
+    "ID" : 5,
+    "Name": "Grass",
+    "Effective": [ 3, 9, 13 ],
+    "Not Effective": [ 2, 5, 8, 10, 12, 15 ],
+    "No Effect": []
+}, {
+    "ID" : 6,
+    "Name": "Ice",
+    "Effective": [ 5, 9, 10, 15 ],
+    "Not Effective": [ 2, 3, 6, 17 ],
+    "No Effect": []
+}, {
+    "ID" : 7,
+    "Name": "Fighting",
+    "Effective": [ 1, 6, 13, 16, 17 ],
+    "Not Effective": [ 8, 10, 11, 12, 18 ],
+    "No Effect": [ 14 ]
+}, {
+    "ID" : 8,
+    "Name": "Poison",
+    "Effective": [ 5, 18 ],
+    "Not Effective": [ 8, 9, 13, 14 ],
+    "No Effect": [ 17 ]
+}, {
+    "ID" : 9,
+    "Name": "Ground",
+    "Effective": [ 2, 4, 8, 13, 17 ],
+    "Not Effective": [ 5, 12 ],
+    "No Effect": [ 10 ]
+}, {
+    "ID" : 10,
+    "Name": "Flying",
+    "Effective": [ 5, 7, 12 ],
+    "Not Effective": [4, 13, 17 ],
+    "No Effect": []
+}, {
+    "ID" : 11,
+    "Name": "Psychic",
+    "Effective": [ 7, 8 ],
+    "Not Effective": [ 11, 17 ],
+    "No Effect": [ 16 ]
+}, {
+    "ID" : 12,
+    "Name": "Bug",
+    "Effective": [ 5, 11, 16 ],
+    "Not Effective": [ 2, 7, 8, 14, 17, 18 ],
+    "No Effect": []
+}, {
+    "ID" : 13,
+    "Name": "Rock",
+    "Effective": [ 2, 6, 10, 12 ],
+    "Not Effective": [ 7, 9, 17 ],
+    "No Effect": []
+}, {
+    "ID" : 14,
+    "Name": "Ghost",
+    "Effective": [ 11, 14 ],
+    "Not Effective": [ 16 ],
+    "No Effect": [ 1 ]
+}, {
+    "ID" : 15,
+    "Name": "Dragon",
+    "Effective": [ 15 ],
+    "Not Effective": [ 17 ],
+    "No Effect": [ 18 ]
+}, {
+    "ID" : 16,
+    "Name": "Dark",
+    "Effective": [],
+    "Not Effective": [],
+    "No Effect": []
+}, {
+    "ID" : 17,
+    "Name": "Steel",
+    "Effective": [ 6, 13, 18 ],
+    "Not Effective": [ 2, 3, 4, 17 ],
+    "No Effect": []
+}, {
+    "ID" : 18,
+    "Name": "Fairy",
+    "Effective": [ 7, 15, 16 ],
+    "Not Effective": [ 2, 8, 17 ],
+    "No Effect": []
+} ]

@@ -60,7 +60,12 @@ export default class PokemonIVItem extends React.Component {
           {gradeLetter}
         </div>
         <CardHeader title={`#${pokemon.id} ${pokemon.name}`}
-          subtitle={`${cp}CP / ${hp}HP`}
+          subtitle={
+            <div>
+              {cp}CP <br/>
+              {hp}HP
+            </div>
+          }
           avatar={avatar}/>
         <CardMedia className="pkm-list-item-body">
           <RadarChart cx={100} cy={90} width={200} height={150} outerRadius={70} data={chartData}>
@@ -74,8 +79,8 @@ export default class PokemonIVItem extends React.Component {
           </RadarChart>
         </CardMedia>
         <CardTitle>
-          Perfeição: {perfection.worst}% a {perfection.best}% <br/>
-          {ivs.count} IVs encontrado{ ivs.count > 0 ? 's' : ''}
+          <b>Perfeição:</b> {perfection.worst}% a {perfection.best}% <br/>
+          <b>{ivs.count}</b> IVs encontrado{ ivs.count > 0 ? 's' : ''}
         </CardTitle>
         {this.props.onEditPress &&
           <FloatingActionButton mini zDepth={1}

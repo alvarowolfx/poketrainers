@@ -47,15 +47,18 @@ class App extends React.Component {
         <AppBar title="Poke Trainers" showMenuIconButton
           onLeftIconButtonTouchTap={() => this.toggleMenu()}/>
         <Drawer docked={false}
-          width={200}
+          width={250}
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}>
           <AppBar title="Menu" showMenuIconButton={false}/>
           <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
-            IV Calculator
+            Calculadora de IV
+          </MenuItem>
+          <MenuItem onTouchTap={() => this.changeTab('/candies-calculator')}>
+            Calculadora de XP e Candies
           </MenuItem>
           <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
-            Egg Chart
+            Ovos pokemon
           </MenuItem>
         </Drawer>
         <GitHubForkRibbon position="right" color="black">
@@ -71,6 +74,7 @@ class App extends React.Component {
 
 import CalculatorPage from './CalculatorPage';
 import EggChartPage from './EggChartPage';
+import CandyCalculatorPage from './CandyCalculatorPage';
 
 let AppWithRouter = withRouter(App);
 
@@ -80,6 +84,7 @@ let routes = () => (
             <IndexRoute component={CalculatorPage}/>
             <Route path="iv-calculator" component={CalculatorPage}/>
             <Route path="egg-chart" component={EggChartPage}/>
+            <Route path="candies-calculator" component={CandyCalculatorPage}/>
         </Route>
     </Router>
 );

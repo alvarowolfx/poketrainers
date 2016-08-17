@@ -2,12 +2,13 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 
-const TextFieldTemplate = (locals) => {
+const TextFieldTemplate = (locals) => {  
   return (
     <TextField
       floatingLabelText={locals.label}
       hintText={locals.label}
       value={locals.value}
+      errorText={locals.error}
       onChange={(evt,value) => locals.onChange(value)}
       floatingLabelFixed
     />

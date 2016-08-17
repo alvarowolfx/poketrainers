@@ -2,7 +2,21 @@
 import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
 import * as ivCalculator from 'pokemon-go-iv-calculator';
 import { padLeft } from './string-utils';
- 
+
+import pokemonData from '../data/pokemon_game_data.json';
+
+function findPokemonInGameData(pokemonName){
+  let search = pokemonData.filter( p => p.Name === pokemonName)
+  if(search.length > 0){
+    return {
+      ...search[0],
+      avatar: getPokemonImageUrl(search[0].PkMn)
+    };
+  }else{
+    throw new Error(`Pokemon ${pokemonName} not found`);
+  }
+}
+
 function roundPercent(num){
   return (100*num).toFixed(0);
 }
@@ -57,4 +71,63 @@ export function getPokemonImageUrl(id){
   let pokemonId = padLeft(id,3);
   let avatar = `https://boost-rankedboost.netdna-ssl.com/wp-content//themes/RB2/riot/poksimages/pokemons/${pokemonId}.png`;
   return avatar;
+}
+
+const XP_PER_EVOLUTION = 500;
+const TIME_PER_EVOLUTION = 24;
+
+export function getPokemonCandyResume(pokemonName, quantity, candies, transfer){
+  let originalQuantity = quantity;
+
+  let pokemon = findPokemonInGameData(pokemonName);
+  let candiesToEvolve = pokemon["Candy To Evolve"];
+
+  let pokemonsToEvolve = Math.floor(candies/candiesToEvolve);
+  let pokemonsToTransfer = 0;
+  let evolutionsToTransfer = 0;
+  let candiesLeft = 0;
+  if(quantity >= pokemonsToEvolve){
+    quantity -= pokemonsToEvolve;
+
+    candiesLeft = candies - (pokemonsToEvolve*candiesToEvolve);
+    pokemonsToEvolve += Math.floor(candiesLeft/candiesToEvolve);
+
+    if(quantity > candiesToEvolve){
+      let possibleEvolutions = Math.floor(quantity/(candiesToEvolve+1));
+      pokemonsToTransfer = possibleEvolutions*candiesToEvolve;
+      candiesLeft += pokemonsToTransfer;
+      pokemonsToEvolve += possibleEvolutions;
+      quantity -= (pokemonsToTransfer+possibleEvolutions);
+      candiesLeft -= (possibleEvolutions*candiesToEvolve);
+    }
+
+    if(transfer && pokemonsToEvolve > candiesToEvolve){
+      let possibleEvolutions = Math.floor(pokemonsToEvolve/candiesToEvolve);
+      if(quantity >= possibleEvolutions){
+        evolutionsToTransfer = possibleEvolutions*candiesToEvolve;
+        candiesLeft += evolutionsToTransfer;
+        pokemonsToEvolve += possibleEvolutions;
+        quantity -= possibleEvolutions;
+        candiesLeft -= (possibleEvolutions*candiesToEvolve);
+      }
+    }
+  }else{
+    pokemonsToEvolve = quantity;
+    quantity = 0;
+    candiesLeft = candies - (pokemonsToEvolve*candiesToEvolve);
+  }
+  let xp = XP_PER_EVOLUTION * pokemonsToEvolve;
+  return {
+    pokemon,
+    quantity: originalQuantity,
+    candies,
+    xp,
+    xpWithLuckyEgg: xp*2,
+    pokemonsToEvolve,
+    pokemonsToTransfer,
+    evolutionsToTransfer,
+    candiesLeft,
+    pokemonsLeft: quantity,
+    time: TIME_PER_EVOLUTION * pokemonsToEvolve
+  }
 }
