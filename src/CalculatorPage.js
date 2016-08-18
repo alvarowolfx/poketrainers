@@ -107,8 +107,7 @@ class CalculatorPage extends Component {
 
   render() {
     let { currentPokemon, pokemons } = this.state;
-    let resume = currentPokemon.resume;
-    let tableWidth = 70;
+    let resume = currentPokemon.resume;    
     return (
       <div className="calculator-container">
         <Card>
@@ -134,67 +133,54 @@ class CalculatorPage extends Component {
             />
             <PokemonIVItem pokemon={currentPokemon}/>
             {resume.chartData.length > 0 &&
-              <Table selectable={false}>
+              <Table selectable>
                 <TableHeader
                   displaySelectAll={false}
                   adjustForCheckbox={false}
                   enableSelectAll={false}>
                   <TableRow>
-                    <TableHeaderColumn width={tableWidth}>{resume.pokemon.name}</TableHeaderColumn>
-                    <TableHeaderColumn>Attack</TableHeaderColumn>
-                    <TableHeaderColumn>Defense</TableHeaderColumn>
-                    <TableHeaderColumn>Stamina</TableHeaderColumn>
-                    <TableHeaderColumn>Level</TableHeaderColumn>
-                    <TableHeaderColumn>CP</TableHeaderColumn>
-                    <TableHeaderColumn>MAX CP</TableHeaderColumn>
-                    <TableHeaderColumn>HP</TableHeaderColumn>
-                    <TableHeaderColumn>MAX HP</TableHeaderColumn>
+                    <TableHeaderColumn>Perfeição</TableHeaderColumn>
+                    <TableHeaderColumn>0%</TableHeaderColumn>
+                    <TableHeaderColumn>{resume.ivs.your_worst.perfection}%</TableHeaderColumn>
+                    <TableHeaderColumn>{resume.ivs.your_best.perfection}%</TableHeaderColumn>
+                    <TableHeaderColumn>100%</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                   <TableRow>
-                    <TableRowColumn width={tableWidth}>O melhor</TableRowColumn>
-                    <TableRowColumn>15</TableRowColumn>
-                    <TableRowColumn>15</TableRowColumn>
-                    <TableRowColumn>15</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.level}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.maxHp}</TableRowColumn>
+                    <TableRowColumn>IVs</TableRowColumn>
+                    <TableRowColumn>0/0/0</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.attackIV}/{resume.ivs.your_worst.defenseIV}/{resume.ivs.your_worst.staminaIV}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.attackIV}/{resume.ivs.your_best.defenseIV}/{resume.ivs.your_best.staminaIV}</TableRowColumn>
+                    <TableRowColumn>15/15/15</TableRowColumn>
                   </TableRow>
                   <TableRow>
-                    <TableRowColumn width={tableWidth}><b>Seu melhor</b></TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.attackIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.defenseIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.staminaIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.level}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.maxHp}</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn width={tableWidth}><b>Seu pior</b></TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.attackIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.defenseIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.staminaIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.level}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.maxHp}</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn width={tableWidth}>O pior</TableRowColumn>
-                    <TableRowColumn>0</TableRowColumn>
-                    <TableRowColumn>0</TableRowColumn>
-                    <TableRowColumn>0</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.worst.level}</TableRowColumn>
+                    <TableRowColumn>CP</TableRowColumn>
                     <TableRowColumn>{resume.ivs.worst.cp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.cp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.cp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.best.cp}</TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>MaxCP</TableRowColumn>
                     <TableRowColumn>{resume.ivs.worst.maxCp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.maxCp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.maxCp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.best.maxCp}</TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>HP</TableRowColumn>
                     <TableRowColumn>{resume.ivs.worst.hp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.hp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.hp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.best.hp}</TableRowColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableRowColumn>MaxHP</TableRowColumn>
                     <TableRowColumn>{resume.ivs.worst.maxHp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_worst.maxHp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.your_best.maxHp}</TableRowColumn>
+                    <TableRowColumn>{resume.ivs.best.maxHp}</TableRowColumn>
                   </TableRow>
                 </TableBody>
               </Table>

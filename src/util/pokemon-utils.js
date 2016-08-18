@@ -93,6 +93,10 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
   let avgPerfection;
   let perfection = {};
   let chartData = [];
+  let ivs = {
+    count: 0
+  };
+  let lvlRange = findLevelRangePerDust(dust);
   if(ivsResults.ivs.length){
     let sortedIvs = ivsResults.ivs.sort( (a,b) => b.perfection-a.perfection);
     if(sortedIvs.length > 1){
@@ -112,23 +116,23 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
       { stat: '🛡', best: best.defenseIV, worst: worst.defenseIV },
       { stat: '💪', best: best.staminaIV, worst: worst.staminaIV }
     ];
-  }
-  let lvlRange = findLevelRangePerDust(dust);
-  let bestLvl = lvlRange[lvlRange.length-1];
-  let worstLvl = lvlRange[0];
-  return {
-    pokemon,
-    lvlRange,
-    chartData,
-    grade: ivsResults.grade,
-    perfection,
-    ivs: {
+    let bestLvl = lvlRange[lvlRange.length-1];
+    let worstLvl = lvlRange[0];
+    ivs = {
       best: calculateStats(pokemon,15,15,15,bestLvl),
       your_best: calculateStats(pokemon, best.attackIV, best.defenseIV, best.staminaIV, best.level),
       your_worst: calculateStats(pokemon, worst.attackIV, worst.defenseIV, worst.staminaIV, worst.level),
       worst: calculateStats(pokemon,0,0,0,worstLvl),
       count: ivsResults.ivs.length
     }
+  }
+  return {
+    pokemon,
+    lvlRange,
+    chartData,
+    grade: ivsResults.grade,
+    perfection,
+    ivs
   }
 }
 
