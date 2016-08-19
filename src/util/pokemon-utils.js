@@ -136,9 +136,9 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
   }
 }
 
-export function getPokemonImageUrl(id){
+export function getPokemonImageUrl(id, size="thumb",type="real"){
   let pokemonId = padLeft(id,3);
-  let avatar = `https://boost-rankedboost.netdna-ssl.com/wp-content//themes/RB2/riot/poksimages/pokemons/${pokemonId}.png`;
+  let avatar = `https://storage.googleapis.com/poketrainers-b1785.appspot.com/pokemons/${type}/${size}/${pokemonId}.png`;
   return avatar;
 }
 
