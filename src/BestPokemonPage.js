@@ -30,7 +30,7 @@ class BestPokemonPage extends Component {
     let filter = 0
     this.state = {
       filter,
-      pokemons: pokemonData.sort(SORTERS[filter])
+      pokemons: pokemonData
     };
   }
 

@@ -130,7 +130,7 @@ footer {
   border-color: red;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .pkm-list {
     justify-content: space-around;
   }
