@@ -7,12 +7,20 @@ import withRouter from 'react-router/lib/withRouter';
 import browserHistory from 'react-router/lib/browserHistory';
 import IndexRoute from 'react-router/lib/IndexRoute';
 
+import * as firebase from 'firebase';
+
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import GitHubForkRibbon from 'react-github-fork-ribbon';
+import IconMenu from 'material-ui/IconMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import PersonIcon from 'material-ui/svg-icons/social/person';
+import Avatar from 'material-ui/Avatar';
+//import GitHubForkRibbon from 'react-github-fork-ribbon';
 
 import './App.css';
+
+import LoginDialog from './LoginDialog';
 
 function logPageView() {
   ReactGA.set({ page: window.location.pathname });
@@ -25,8 +33,17 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      open: false
+      open: false,
+      user: null
     };
+  }
+
+  componentWillMount(){
+    firebase.auth().onAuthStateChanged( user => {
+      this.setState({
+        user
+      });
+    });
   }
 
   toggleMenu(){
@@ -37,41 +54,85 @@ class App extends React.Component {
   }
 
   changeTab(tab){
-    this.props.router.push(tab);
-    this.toggleMenu();
+    this.props.router.replace(tab);
+    this.setState({
+      open: false
+    });
+  }
+
+  renderDrawer(){
+    return (
+      <Drawer docked={false}
+        width={250}
+        open={this.state.open}
+        onRequestChange={(open) => this.setState({open})}>
+        <AppBar title="Menu" showMenuIconButton={false}/>
+        <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
+          Calculadora de IV
+        </MenuItem>
+        <MenuItem onTouchTap={() => this.changeTab('/best-pokemon')}>
+          Melhores Pokemons
+        </MenuItem>
+        <MenuItem onTouchTap={() => this.changeTab('/candies-calculator')}>
+          Calculadora de XP e Candies
+        </MenuItem>
+        <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
+          Ovos pokemon
+        </MenuItem>
+        <MenuItem onTouchTap={() => this.changeTab('/about')}>
+          Sobre
+        </MenuItem>
+      </Drawer>
+    );
+  }
+
+  logout(){
+    firebase.auth().signOut();
+  }
+
+  renderLoginButton(){
+    return (
+      <RaisedButton
+        icon={<PersonIcon/>}
+        label={'Login'}
+        onTouchTap={() => this.refs.loginDialog.open()}
+        style={{marginTop: 5}}/>
+    );
+  }
+
+  renderLoggedInButton(){
+    let { user } = this.state;
+    return (
+      <IconMenu
+        iconButtonElement={
+          <RaisedButton
+            icon={<Avatar src={user.photoURL} size={30}/>}
+            label={user.displayName}
+            style={{marginTop: 5}}/>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
+        <MenuItem primaryText="Sair" onTouchTap={ () => this.logout()}/>
+      </IconMenu>
+    );
   }
 
   render() {
+    /*
+    <GitHubForkRibbon position="right" color="black">
+      Beta Version
+    </GitHubForkRibbon>
+     */
+    let { user } = this.state;
     return (
       <div className="app">
         <AppBar title="Poke Trainers" showMenuIconButton
+          iconElementRight={user ? this.renderLoggedInButton() : this.renderLoginButton()}
           onLeftIconButtonTouchTap={() => this.toggleMenu()}/>
-        <Drawer docked={false}
-          width={250}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}>
-          <AppBar title="Menu" showMenuIconButton={false}/>
-          <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
-            Calculadora de IV
-          </MenuItem>
-          <MenuItem onTouchTap={() => this.changeTab('/best-pokemon')}>
-            Melhores Pokemons
-          </MenuItem>
-          <MenuItem onTouchTap={() => this.changeTab('/candies-calculator')}>
-            Calculadora de XP e Candies
-          </MenuItem>
-          <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
-            Ovos pokemon
-          </MenuItem>
-          <MenuItem onTouchTap={() => this.changeTab('/about')}>
-            Sobre
-          </MenuItem>
-        </Drawer>
-        <GitHubForkRibbon position="right" color="black">
-          Beta Version
-        </GitHubForkRibbon>
+        {this.renderDrawer()}
         <div className="app-container">
-          {this.props.children}
+          <LoginDialog ref='loginDialog'/>
+          {React.cloneElement(this.props.children,{ user })}
           <footer>
             ©2016 Poke Trainers | All Rights Reserved
             <br/>

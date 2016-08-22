@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-//import SelectField from 'material-ui/SelectField';
-//import MenuItem from 'material-ui/MenuItem';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import LinearProgress from 'material-ui/LinearProgress';
 
@@ -42,19 +40,6 @@ class BestPokemonPage extends Component {
   }
 
   render() {
-    /*
-    let items = FILTERS.map( (value, i) => {
-      return (
-        <MenuItem key={"opt_"+i} value={i} primaryText={value} />
-      );
-    });
-    <SelectField
-      value={this.state.filter}
-      onChange={(evt, index, value) => this.handleChange(value) }
-      floatingLabelText={'Tipo de status'}>
-      {items}
-    </SelectField>
-    */
     let itemsRadio = FILTERS.map( (value, i) => {
       return (
         <RadioButton
@@ -83,16 +68,29 @@ class BestPokemonPage extends Component {
         <div className="pkm-list">
           {pokemons.map( (pkm,idx) => {
             return (
-              <Card key={idx} className="pkm-list-item" style={{maxWidth: '180px'}}>
+              <Card key={idx} className="pkm-list-best-item">
                 <CardHeader title={pkm.Name} subtitle={pkm['Types'].join('/')}
                   avatar={getPokemonImageUrl(pkm.PkMn,'thumb')}/>
                 <CardText>
                   {pkm['Base Attack']} Ataque
-                  <LinearProgress mode="determinate" value={100*pkm['Base Attack']/284} color={red700}/><br/>
+                  <LinearProgress mode="determinate"
+                    min={0} max={285}
+                    value={pkm['Base Attack']}
+                    color={red700}/>
+                  <br/>
+
                   {pkm['Base Defense']} Defesa
-                  <LinearProgress mode="determinate" value={100*pkm['Base Defense']/284} color={green700}/><br/>
+                  <LinearProgress mode="determinate"
+                    min={0} max={285}
+                    value={pkm['Base Defense']}
+                    color={green700}/>
+                  <br/>
+
                   {pkm['Base Stamina']} Vida
-                  <LinearProgress mode="determinate" value={100*pkm['Base Stamina']/284} color={yellow700}/>
+                  <LinearProgress mode="determinate"
+                    min={0} max={285}
+                    value={pkm['Base Stamina']}
+                    color={yellow700}/>
                 </CardText>
               </Card>
             );

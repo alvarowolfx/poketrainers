@@ -8,9 +8,10 @@ export default class PokemonCandyList extends React.Component {
     let { entries } = this.props;
     return (
       <div className="pkm-list">
-        {entries.map( (e,i) => {
-            return <PokemonCandyItem key={i} entry={e}
-              onRemovePress={() => this.props.onRemove(i, e)}/>;
+        {Object.keys(entries).map( key => {
+            let e = entries[key];
+            return <PokemonCandyItem key={key} entry={e}
+              onRemovePress={() => this.props.onRemove(key, e)}/>;
         })}
       </div>
     );

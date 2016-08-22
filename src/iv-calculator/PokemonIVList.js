@@ -8,9 +8,10 @@ export default class PokemonIVList extends React.Component {
     let { pokemons } = this.props;
     return (
       <div className="pkm-list">
-        {pokemons.map( (p,i) => {
-            return <PokemonIVItem key={i} pokemon={p}
-              onRemovePress={() => this.props.onRemove(i, p)}/>;
+        {Object.keys(pokemons).map( key => {
+            let p = pokemons[key];
+            return <PokemonIVItem key={key} pokemon={p}
+              onRemovePress={() => this.props.onRemove(key, p)}/>;
         })}
       </div>
     );

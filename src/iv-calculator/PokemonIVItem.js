@@ -23,6 +23,8 @@ import PolarGrid from 'recharts/lib/polar/PolarGrid';
 import PolarAngleAxis from 'recharts/lib/polar/PolarAngleAxis';
 import PolarRadiusAxis from 'recharts/lib/polar/PolarRadiusAxis';
 
+import { generatePokemonResume } from '../util/pokemon-utils';
+
 export default class PokemonIVItem extends React.Component {
 
   shouldComponentUpdate(nextProps){
@@ -30,9 +32,9 @@ export default class PokemonIVItem extends React.Component {
   }
 
   render() {
-    let { chartData, pokemon, grade, perfection, ivs } = this.props.pokemon.resume;
-    let { cp, hp, dust } = this.props.pokemon.form;
-
+    let { cp, hp, dust, name } = this.props.pokemon;
+    let resume = generatePokemonResume(name, parseInt(cp,10), parseInt(hp,10), parseInt(dust,10));
+    let { chartData, pokemon, grade, perfection, ivs } = resume;
     let header = (
       <CardHeader title={`#${pokemon.PkMn} ${pokemon.Name}`}
         avatar={pokemon.avatar}

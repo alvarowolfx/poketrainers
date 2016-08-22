@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -12,6 +13,9 @@ import {
   red500 as secondaryColor,
   red700 as secondaryColor2,
 } from 'material-ui/styles/colors';
+
+import * as firebase from 'firebase';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -47,6 +51,14 @@ const AppWithTheme = () => (
     <App/>
   </MuiThemeProvider>
 )
+
+var config = {
+  apiKey: "AIzaSyAjZ2DEzYIj1vyRqAz8hc0axsbVHXmzVyQ",
+  authDomain: "poketrainers-b1785.firebaseapp.com",
+  databaseURL: "https://poketrainers-b1785.firebaseio.com",
+  storageBucket: "poketrainers-b1785.appspot.com",
+};
+firebase.initializeApp(config);
 
 ReactDOM.render(
   <AppWithTheme />,

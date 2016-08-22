@@ -82,6 +82,11 @@ footer {
   margin: 10px;
 }
 
+.pkm-list-best-item {
+  max-width: 230px;
+  margin: 10px;
+}
+
 .pkm-list-item-body {
   display: flex;
   align-items: center;
@@ -135,7 +140,7 @@ footer {
     justify-content: space-around;
   }
 
-  .pkm-list-item {
+  .pkm-list-item, .pkm-best-list-item {
     max-width: 320px;
     width: 90%;
   }

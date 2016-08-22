@@ -10,6 +10,8 @@ import PokemonIVList from './iv-calculator/PokemonIVList';
 import PokemonIVItem from './iv-calculator/PokemonIVItem';
 import FormIVCalculator from './iv-calculator/FormIVCalculator';
 
+import * as firebase from 'firebase';
+
 const POKEMON_EXAMPLE = {
   name: 'Ivysaur',
   cp: 608,
@@ -18,6 +20,7 @@ const POKEMON_EXAMPLE = {
 };
 
 class CalculatorPage extends Component {
+
   constructor(props){
     super(props);
 
@@ -31,14 +34,47 @@ class CalculatorPage extends Component {
         form,
         resume:{}
       },
-      pokemons: []
+      pokemons: {}
     };
 
+    this.dataRef = null;
     this.onFormChange = this.onFormChange.bind(this);
   }
 
   componentWillMount(){
     this.onFormChange(this.state.currentPokemon.form);
+    this.connect(this.props);
+  }
+
+  connect(props){
+    let { user } = props;
+    if(user){
+      let userId = user.uid;
+      this.dataRef = firebase.database().ref(`users/${userId}/ivs`);
+      this.dataRef.on('value', snap => {
+        let pokemons = snap.val();
+        if(pokemons){
+          this.setState({
+            pokemons
+          });
+        }
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(!this.props.user && nextProps.user){
+      this.connect(nextProps);
+    }
+    if(this.props.user && !nextProps.user && this.dataRef){
+      this.dataRef.off();
+    }
+  }
+
+  componentWillUnmount(){
+    if(this.dataRef){
+      this.dataRef.off();
+    }
   }
 
   addPokemon(){
@@ -48,15 +84,21 @@ class CalculatorPage extends Component {
     }
 
     let newPokemon = {
-      ...this.state.currentPokemon
+      ...this.state.currentPokemon.form
+    };
+    delete newPokemon['isValid'];
+
+    let { user } = this.props;
+    if(user){
+      this.dataRef.push(newPokemon);
+    }
+
+    let nextId = Object.keys(this.state.pokemons).length;
+    let pokemons = {
+      [nextId]: newPokemon,
+      ...this.state.pokemons
     };
 
-    let pokemons = [newPokemon,...this.state.pokemons];
-    /*
-    let newForm = {
-      ...POKEMON_EXAMPLE
-    };
-    */
     let newForm = {
       name: 'Bulbasaur',
       cp: 0,
@@ -72,17 +114,29 @@ class CalculatorPage extends Component {
     this.onFormChange(newForm);
   }
 
-  onRemove(i, pokemon){
-    let pokemons = [...this.state.pokemons];
-    pokemons.splice(i, 1);
+  onRemove(key, pokemon){
+    let pokemons = {...this.state.pokemons};
+    delete pokemons[key];
+
+    let { user } = this.props;
+    if(user){
+      let userId = user.uid;
+      firebase.database().ref(`users/${userId}/ivs/${key}`).remove();
+    }
+
     this.setState({
       pokemons
     });
   }
 
   removeAll() {
+    let { user } = this.props;
+    if(user){
+      let userId = user.uid;
+      firebase.database().ref(`users/${userId}/ivs`).remove();
+    }
     this.setState({
-      pokemons: []
+      pokemons: {}
     });
   }
 
@@ -107,7 +161,7 @@ class CalculatorPage extends Component {
 
   render() {
     let { currentPokemon, pokemons } = this.state;
-    let resume = currentPokemon.resume;    
+    let resume = currentPokemon.resume;
     return (
       <div className="calculator-container">
         <Card>
@@ -131,7 +185,7 @@ class CalculatorPage extends Component {
               title="Possibilidades"
               subtitle="Saiba se seu pokemon tem potencial"
             />
-            <PokemonIVItem pokemon={currentPokemon}/>
+            <PokemonIVItem pokemon={currentPokemon.form}/>
             {resume.chartData.length > 0 &&
               <Table selectable>
                 <TableHeader
@@ -188,7 +242,7 @@ class CalculatorPage extends Component {
           </Card>
           <br/>
           <PokemonIVList pokemons={pokemons}
-            onRemove={(i, pokemon) => this.onRemove(i,pokemon)} />
+            onRemove={(key, pokemon) => this.onRemove(key,pokemon)} />
         </div>
       </div>
     );

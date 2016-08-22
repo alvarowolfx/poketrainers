@@ -11,6 +11,8 @@ import ContentRemove from 'material-ui/svg-icons/content/remove';
 
 import isEqual from 'lodash/isEqual';
 
+import { getPokemonCandyResume } from '../util/pokemon-utils';
+
 export default class PokemonCandyItem extends React.Component {
 
   shouldComponentUpdate(nextProps){
@@ -18,8 +20,9 @@ export default class PokemonCandyItem extends React.Component {
   }
 
   render() {
-    let e = this.props.entry
-    let name = e.pokemon.Name;
+    let { name, quantity, candies, transfer } = this.props.entry;
+    let e = getPokemonCandyResume(name,quantity,candies,transfer === 1);
+    name = e.pokemon.Name;
     return (
       <Card className='pkm-list-item'>
         {this.props.onRemovePress &&

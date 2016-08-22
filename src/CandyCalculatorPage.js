@@ -11,6 +11,8 @@ import FormCandyCalculator from './candy-calculator/FormCandyCalculator';
 import PokemonCandyItem from './candy-calculator/PokemonCandyItem';
 import PokemonCandyList from './candy-calculator/PokemonCandyList';
 
+import * as firebase from 'firebase';
+
 const POKEMON_EXAMPLE = {
   name: 'Pidgey',
   quantity: 15,
@@ -33,25 +35,68 @@ export default class CandyCalculatorPage extends Component {
     this.state = {
       form,
       isValid: false,
-      result: {},
-      entries: []
+      entries: {}
     };
 
+    this.dataRef = null;
     this.onFormChange = this.onFormChange.bind(this);
   }
 
   componentWillMount(){
     this.onFormChange(this.state.form);
+    this.connect(this.props);
+  }
+
+  connect(props){
+    let { user } = props;
+    if(user){
+      let userId = user.uid;
+      this.dataRef = firebase.database().ref(`users/${userId}/candies`);
+      this.dataRef.on('value', snap => {
+        let entries = snap.val();
+        if(entries){
+          this.setState({
+            entries
+          });
+        }
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(!this.props.user && nextProps.user){
+      this.connect(nextProps);
+    }
+    if(this.props.user && !nextProps.user && this.dataRef){
+      this.dataRef.off();
+    }
+  }
+
+  componentWillUnmount(){
+    if(this.dataRef){
+      this.dataRef.off();
+    }
   }
 
   addEntry(){
-    let { result, isValid } = this.state;
+    let { isValid, form, entries } = this.state;
     if(!isValid){
       return;
     }
 
-    let newEntry = { ...result };
-    let entries = [newEntry,...this.state.entries];
+    let newEntry = { ...form };
+
+    let { user } = this.props;
+    if(user){
+      this.dataRef.push(newEntry);
+    }
+
+    let nextId = Object.keys(entries).length;
+    let newEntries = {
+      [nextId]: newEntry,
+      ...entries
+    };
+
     let newForm = {
       name: 'Pidgey',
       quantity: 0,
@@ -60,23 +105,35 @@ export default class CandyCalculatorPage extends Component {
 
     this.setState({
       form: newForm,
-      result: {},
-      entries,
+      entries: newEntries
     });
+
     this.onFormChange(newForm);
   }
 
-  onRemove(i, entry){
-    let entries = [...this.state.entries];
-    entries.splice(i, 1);
+  onRemove(key, entry){
+    let entries = {...this.state.entries};
+
+    let { user } = this.props;
+    if(user){
+      let userId = user.uid;
+      firebase.database().ref(`users/${userId}/candies/${key}`).remove();
+    }
+
+    delete entries[key];
     this.setState({
       entries
     });
   }
 
   removeAll() {
+    let { user } = this.props;
+    if(user){
+      let userId = user.uid;
+      firebase.database().ref(`users/${userId}/candies`).remove();
+    }
     this.setState({
-      entries: []
+      entries: {}
     });
   }
 
@@ -85,20 +142,19 @@ export default class CandyCalculatorPage extends Component {
     if(!isValid){
       return;
     }
-    let result = getPokemonCandyResume(
-      form.name,
-      form.quantity,
-      form.candies,
-      form.transfer === 1);
+
     this.setState({
       form,
-      isValid,
-      result
+      isValid
     });
   }
 
   render() {
-    let { form, entries, result } = this.state;
+    let { form, entries } = this.state;
+    let arrEntries = Object.keys(entries).map( k => {
+      let { name, quantity, candies, transfer } = entries[k];
+      return getPokemonCandyResume(name,quantity, candies, transfer === 1)
+    });
     return (
       <div className="calculator-container">
         <Card>
@@ -123,7 +179,7 @@ export default class CandyCalculatorPage extends Component {
         </Card>
         <br/>
         <div className="candy-calculator-resume">
-          <PokemonCandyItem entry={result}/>
+          <PokemonCandyItem entry={form}/>
           <Card>
             <CardHeader
               title="Resultado final"
@@ -131,17 +187,17 @@ export default class CandyCalculatorPage extends Component {
             />
             <List className="instructions">
               <Subheader>Instruções</Subheader>
-              <li>{sum(entries,'pokemonsToTransfer')} pokemons a transferir </li>
-              <li>{sum(entries,'pokemonsToEvolve')} pokemons a evoluir </li>
-              <li>{sum(entries,'xp')} xp </li>
-              <li>{sum(entries,'xpWithLuckyEgg')} xp com Lucky Egg</li>
-              <li>{sum(entries,'time')/60} minutos </li>
-              <li>{30 - sum(entries,'time')/60} minutos restantes de Lucky Egg</li>
+              <li>{sum(arrEntries,'pokemonsToTransfer')} pokemons a transferir </li>
+              <li>{sum(arrEntries,'pokemonsToEvolve')} pokemons a evoluir </li>
+              <li>{sum(arrEntries,'xp')} xp </li>
+              <li>{sum(arrEntries,'xpWithLuckyEgg')} xp com Lucky Egg</li>
+              <li>{sum(arrEntries,'time')/60} minutos </li>
+              <li>{30 - sum(arrEntries,'time')/60} minutos restantes de Lucky Egg</li>
             </List>
           </Card>
         </div>
         <br/>
-        <PokemonCandyList entries={entries} onRemove={(i, entry) => this.onRemove(i,entry)}/>
+        <PokemonCandyList entries={entries} onRemove={(key, entry) => this.onRemove(key,entry)}/>
       </div>
     );
   }
