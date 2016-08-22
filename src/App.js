@@ -13,6 +13,7 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import Avatar from 'material-ui/Avatar';
@@ -105,13 +106,13 @@ class App extends React.Component {
     return (
       <IconMenu
         iconButtonElement={
-          <RaisedButton
-            icon={<Avatar src={user.photoURL} size={30}/>}
-            label={user.displayName}
-            style={{marginTop: 5}}/>
+          <IconButton>
+            <Avatar src={user.photoURL} size={30}/>
+          </IconButton>
         }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
+        <MenuItem primaryText={`Logado como ${user.displayName}`} />
         <MenuItem primaryText="Sair" onTouchTap={ () => this.logout()}/>
       </IconMenu>
     );
