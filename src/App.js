@@ -83,6 +83,9 @@ class App extends React.Component {
         <MenuItem onTouchTap={() => this.changeTab('/about')}>
           Sobre
         </MenuItem>
+        <MenuItem href="https://goo.gl/forms/drm31vv9xJ4GEEKk2" target="_blank">
+          Dê um feedback
+        </MenuItem>
       </Drawer>
     );
   }
