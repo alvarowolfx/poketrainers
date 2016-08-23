@@ -17,7 +17,7 @@ class AboutPage extends Component {
           <p>
             O site <b>Poke Trainers</b> foi começou a ser criado em 10/08/2016
             com o intuito de ajudar os jogadores de Pokemon Go. Foi inspirado
-            no grande trabalho feito pelo site <a href="https://pokeassistant.com" target="_blank"> 
+            no grande trabalho feito pelo site <a href="https://pokeassistant.com" target="_blank">
             Poke Assistant</a> e da união de diversas pessoas no Reddit, Github e outras fontes
             que foram utilizadas para apresentar as informações aqui.
           </p>
@@ -44,7 +44,7 @@ class AboutPage extends Component {
         </CardText>
         <CardActions>
           <RaisedButton primary label="Site do autor" icon={<ContentWeb/>}
-            href="https://aviebrantz.com.br" target="_blank"/>
+            href="https://aviebrantz.com.br" target="_blank"/>          
         </CardActions>
       </Card>
     );

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card, CardHeader, CardActions } from 'material-ui/Card';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Card, CardHeader, CardActions, CardText, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { generatePokemonResume } from './util/pokemon-utils';
@@ -160,13 +159,12 @@ class CalculatorPage extends Component {
   }
 
   render() {
-    let { currentPokemon, pokemons } = this.state;
-    let resume = currentPokemon.resume;
+    let { currentPokemon, pokemons } = this.state;    
     return (
       <div className="calculator-container">
         <Card>
           <CardHeader
-            title="Calculadora de IV"
+            title="Calculadora de Individual Values (IVs)"
             subtitle="Saiba se seu pokemon tem potencial"
           />
           <FormIVCalculator form={currentPokemon.form}
@@ -179,71 +177,37 @@ class CalculatorPage extends Component {
           </CardActions>
         </Card>
         <br/>
-        <div className="calculator-pkm-resume">
-          <Card className="calculator-pkm-resume-table">
-            <CardHeader
-              title="Possibilidades"
-              subtitle="Saiba se seu pokemon tem potencial"
-            />
-            <PokemonIVItem pokemon={currentPokemon.form}/>
-            {resume.chartData.length > 0 &&
-              <Table selectable>
-                <TableHeader
-                  displaySelectAll={false}
-                  adjustForCheckbox={false}
-                  enableSelectAll={false}>
-                  <TableRow>
-                    <TableHeaderColumn>Perfeição</TableHeaderColumn>
-                    <TableHeaderColumn>0%</TableHeaderColumn>
-                    <TableHeaderColumn>{resume.ivs.your_worst.perfection}%</TableHeaderColumn>
-                    <TableHeaderColumn>{resume.ivs.your_best.perfection}%</TableHeaderColumn>
-                    <TableHeaderColumn>100%</TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                  <TableRow>
-                    <TableRowColumn>IVs</TableRowColumn>
-                    <TableRowColumn>0/0/0</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.attackIV}/{resume.ivs.your_worst.defenseIV}/{resume.ivs.your_worst.staminaIV}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.attackIV}/{resume.ivs.your_best.defenseIV}/{resume.ivs.your_best.staminaIV}</TableRowColumn>
-                    <TableRowColumn>15/15/15</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn>CP</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.worst.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.cp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.cp}</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn>MaxCP</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.worst.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.maxCp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.maxCp}</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn>HP</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.worst.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.hp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.hp}</TableRowColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableRowColumn>MaxHP</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.worst.maxHp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_worst.maxHp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.your_best.maxHp}</TableRowColumn>
-                    <TableRowColumn>{resume.ivs.best.maxHp}</TableRowColumn>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            }
-          </Card>
-          <br/>
-          <PokemonIVList pokemons={pokemons}
-            onRemove={(key, pokemon) => this.onRemove(key,pokemon)} />
+        <div className="pkm-list">
+          <PokemonIVItem pokemon={currentPokemon.form}/>
         </div>
+        <br/>
+        <PokemonIVList pokemons={pokemons}
+          onRemove={(key, pokemon) => this.onRemove(key,pokemon)} />
+        <Card>
+          <CardHeader
+            title="O que são Individual Values (IVs) ?"
+          />
+          <CardTitle subtitle="Status dos pokémons">
+            Todo pokémon possui valores de ataque, defesa e vida, desses valores
+            que internamente o jogo calcula os valores de HP e CP que conseguimos
+            ver.
+          </CardTitle>
+          <CardText>
+            Todo pokemon possui status base fixos para cada espécie.
+            Os IV, Individual Value, ou Valor Individual como diz o nome,
+            é específico de cada Pokémon e variam de 0 a 15.
+          </CardText>
+          <CardTitle subtitle="Perfeição">
+            O quão perto da perfeição seu pokemon está (15 nos 3 IVs).
+          </CardTitle>
+          <CardTitle subtitle="Simulação com Charizard">
+            <div className="pkm-list">
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2247, hp: 123, dust: 10000 }} onlyWorst/>
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2412, hp: 132, dust: 9000 }} onlyWorst/>
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2620, hp: 135, dust: 10000 }} onlyWorst/>
+            </div>
+          </CardTitle>
+        </Card>
       </div>
     );
   }

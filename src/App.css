@@ -76,7 +76,7 @@ footer {
 .pkm-list-item {
   position: relative;
   display: flex;
-  max-width: 230px;
+  max-width: 320px;
   align-items: center;
   justify-content: center;
   margin: 10px;
@@ -88,10 +88,12 @@ footer {
 }
 
 .pkm-list-item-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 8px;
+
+}
+
+.iv-value{
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .pkm-list-item-remove{
