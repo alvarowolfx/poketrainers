@@ -18,6 +18,18 @@ function findPokemonInGameData(pokemonName){
   }
 }
 
+function findPokemonInGameDataById(pokemonId){
+  let search = pokemonData.filter( p => p.PkMn === +pokemonId)
+  if(search){
+    return {
+      ...search[0],
+      avatar: getPokemonImageUrl(search[0].PkMn)
+    };
+  }else{
+    throw new Error(`Pokemon with id ${pokemonId} not found`);
+  }
+}
+
 function findCpScalarPerLevel(level){
   let search = levelData.filter( l => l.level === level);
   if(search){
@@ -75,6 +87,37 @@ function calculateStats(pokemonData, attackIV, defenseIV, staminaIV, level){
 
 function roundPercent(num){
   return (100*num).toFixed(0);
+}
+
+function findEvolutions(evolutions){
+  let ids = (evolutions+"").split(",").map( id => id.trim());
+  return ids.map(findPokemonInGameDataById);
+}
+
+export function guessPokemonLevel(pokemonName, cp){
+  for(let lvl = 1; lvl <= 80; lvl++){
+      let range = calcCPRange(pokemonName, lvl);
+      if(range.minCp <= cp && range.maxCp >= cp){
+        return lvl;
+      }
+  }
+  return null;
+}
+
+export function calcCPRange(pokemonName, lvl, cp){
+  let pokemon = findPokemonInGameData(pokemonName);
+  let range = { };
+  let evolutions = [];
+  if(lvl){
+    let worstCase = calculateStats(pokemon, 5, 5, 5, lvl);
+    let bestCase = calculateStats(pokemon, 10, 10, 10, lvl);
+    range = { minCp: worstCase.cp, maxCp: bestCase.cp };
+    let evoIds = pokemon["Evolution"];
+    if(evoIds){
+      evolutions = findEvolutions(evoIds).map( evo => calcCPRange(evo.Name, lvl));
+    }
+  }
+  return { pokemon, evolutions, ...range, lvl, cp };
 }
 
 export function generatePokemonResume(pokemonName, cp, hp, dust){

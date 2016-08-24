@@ -72,6 +72,9 @@ class App extends React.Component {
         <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
           Calculadora de IV
         </MenuItem>
+        <MenuItem onTouchTap={() => this.changeTab('/pokemon-evolve')}>
+          Calculadora de Evolução
+        </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/best-pokemon')}>
           Melhores Pokemons
         </MenuItem>
@@ -147,6 +150,7 @@ class App extends React.Component {
 
 import CalculatorPage from './CalculatorPage';
 import BestPokemonPage from './BestPokemonPage';
+import PokemonEvolvePage from './PokemonEvolvePage';
 import EggChartPage from './EggChartPage';
 import CandyCalculatorPage from './CandyCalculatorPage';
 import AboutPage from './AboutPage';
@@ -159,6 +163,7 @@ let routes = () => (
             <IndexRoute component={CalculatorPage}/>
             <Route path="iv-calculator" component={CalculatorPage}/>
             <Route path="best-pokemon" component={BestPokemonPage}/>
+            <Route path="pokemon-evolve" component={PokemonEvolvePage}/>
             <Route path="egg-chart" component={EggChartPage}/>
             <Route path="candies-calculator" component={CandyCalculatorPage}/>
             <Route path="about" component={AboutPage}/>
