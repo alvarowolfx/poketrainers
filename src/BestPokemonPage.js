@@ -25,7 +25,7 @@ class BestPokemonPage extends Component {
   constructor(props){
     super(props);
 
-    let filter = 0
+    let filter = null;
     this.state = {
       filter,
       pokemons: pokemonData
