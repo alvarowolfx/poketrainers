@@ -88,8 +88,8 @@ class PokemonEvolvePage extends Component {
             title="Calculadora de Evolução de Pokemons"
             subtitle={`Com essa ferramenta você consegue estimar quanto de CP
               seu pokemon irá ficar após evoluir.
-              Esta ferramenta não é tão precisa quando a de calculo de IV,
-              mas é uma forma rápida de visualizar o resultado de evoluções`}
+              Esta ferramenta não é tão precisa quanto a de cálculo de IV,
+              mas é uma forma rápida de visualizar o resultado de evoluções.`}
           />
           <CardText>
             <FormPokemonEvolve form={form}
