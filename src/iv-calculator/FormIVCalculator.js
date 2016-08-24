@@ -15,10 +15,10 @@ const PokemonNameType = t.enums.of(
 );
 
 const DustType = t.enums.of([
-  400,600,800,1000,
-  1300,1600,1900,2200,2500,
-  3000,3500,4000,4500,5000,
-  6000,7000,8000,9000,10000
+  '400','600','800','1000',
+  '1300','1600','1900','2200','2500',
+  '3000','3500','4000','4500','5000',
+  '6000','7000','8000','9000','10000'
 ]);
 
 const PokemonFormSchema = t.struct({
@@ -49,8 +49,11 @@ export default class FormIVCalculator extends React.Component {
         },
         dust: {
           label: 'Stardust necessária para power up',
-          template: SelectFieldTemplate,
-          nullOption: false
+          template: AutoCompleteFieldTemplate,
+          nullOption: false,
+          config: {
+            type: 'tel'
+          }
         }
       }
     };
