@@ -17,8 +17,14 @@ footer {
 .app-container{
   margin-left: 2%;
   margin-right: 2%;
-  margin-top: 20px;
+  margin-top: 72px;
   padding-bottom: 30px;
+}
+
+@media (min-width: 800px) {
+  .app-container{
+    padding-left: 250px;
+  }
 }
 
 .calculator-container {

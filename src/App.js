@@ -9,6 +9,7 @@ import IndexRoute from 'react-router/lib/IndexRoute';
 
 import * as firebase from 'firebase';
 
+import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -17,7 +18,6 @@ import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import Avatar from 'material-ui/Avatar';
-//import GitHubForkRibbon from 'react-github-fork-ribbon';
 
 import './App.css';
 
@@ -62,12 +62,13 @@ class App extends React.Component {
   }
 
   renderDrawer(){
+    let isLarge = this.props.width === LARGE;
     return (
-      <Drawer docked={false}
+      <Drawer docked={isLarge}
         width={250}
-        open={this.state.open}
+        open={isLarge ? true : this.state.open}
         onRequestChange={(open) => this.setState({open})}>
-        <AppBar title="Menu" showMenuIconButton={false}/>
+        <AppBar title={isLarge ? "Poke Trainers" : "Menu"} showMenuIconButton={false}/>
         <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
           Calculadora de IV
         </MenuItem>
@@ -110,7 +111,7 @@ class App extends React.Component {
       <IconMenu
         iconButtonElement={
           <IconButton>
-            <Avatar src={user.photoURL} size={30}/>
+            <Avatar src={user.photoURL} size={36}/>
           </IconButton>
         }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -122,17 +123,13 @@ class App extends React.Component {
   }
 
   render() {
-    /*
-    <GitHubForkRibbon position="right" color="black">
-      Beta Version
-    </GitHubForkRibbon>
-     */
     let { user } = this.state;
     return (
       <div className="app">
         <AppBar title="Poke Trainers" showMenuIconButton
           iconElementRight={user ? this.renderLoggedInButton() : this.renderLoginButton()}
-          onLeftIconButtonTouchTap={() => this.toggleMenu()}/>
+          onLeftIconButtonTouchTap={() => this.toggleMenu()}
+          style={{position: 'fixed', top: 0, overflowY: 'hidden'}}/>
         {this.renderDrawer()}
         <div className="app-container">
           <LoginDialog ref='loginDialog'/>
@@ -154,7 +151,7 @@ import EggChartPage from './EggChartPage';
 import CandyCalculatorPage from './CandyCalculatorPage';
 import AboutPage from './AboutPage';
 
-let AppWithRouter = withRouter(App);
+let AppWithRouter = withRouter(withWidth()(App));
 
 let routes = () => (
     <Router history={browserHistory} onUpdate={logPageView}>
