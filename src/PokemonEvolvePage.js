@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 
-import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import LinearProgress from 'material-ui/LinearProgress';
-
-import {
-  red700,
-  yellow700,
-  green700
-} from 'material-ui/styles/colors';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 
 import { getPokemonImageUrl, guessPokemonLevel, calcCPRange } from './util/pokemon-utils';
-import pokemons from './data/pokemon_game_data.json';
-
 import FormPokemonEvolve from './pokemon-evolve/FormPokemonEvolve';
 
 const POKEMON_EXAMPLE = {
@@ -90,7 +80,7 @@ class PokemonEvolvePage extends Component {
   }
 
   render() {
-    let { form, lvl, result } = this.state;
+    let { form, result } = this.state;
     return (
       <div className="calculator-container">
         <Card>

@@ -3,7 +3,6 @@ import React from 'react';
 import t from 'tcomb-form';
 const Form = t.form.Form;
 
-import SelectFieldTemplate from '../form/MaterialUISelectFieldTemplate';
 import AutoCompleteFieldTemplate from '../form/MaterialUIAutocompleteFieldTemplate';
 import TextFieldTemplate from '../form/MaterialUITextFieldTemplate';
 import FormTemplate from '../form/FormTemplate';
