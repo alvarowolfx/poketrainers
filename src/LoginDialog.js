@@ -47,7 +47,13 @@ export default class LoginDialog extends Component {
 
   loginWithGoogle(){
     let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then( result => {
+    let loginPromise;
+    if(window.navigator.standalone){
+      loginPromise = firebase.auth().signInWithRedirect(provider);
+    }else{
+      loginPromise = firebase.auth().signInWithPopup(provider)
+    }
+    loginPromise.then( result => {
       this.close();
     }).catch( error => {
       this.setState({
@@ -92,6 +98,7 @@ export default class LoginDialog extends Component {
         modal={true}
         open={this.state.open}
         onRequestClose={this.close.bind(this)}>
+        Você pode salvar seus cálculos no site se você estiver logado.
         {/*
         <div style={{ margin: 'auto'}}>
           <Form ref="form"
