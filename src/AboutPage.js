@@ -26,16 +26,7 @@ class AboutPage extends Component {
             e que com algumas funcionalidades que não tinha visto em outros sites
             com o mesmo intuito, como por exemplo comparar os IVs de diversos pokemons,
             calcular XP por evolução com vários pokemons também, entre outras coisas.
-          </p>
-          <div>
-            As próximas novidades do site serão:
-            <ul>
-              <li> Ajustar cálculo de IV com melhor e pior CP possível para seu pokemon.</li>
-              <li>Vou começar a internacionalizar o site, podendo assim ser acessado por
-            mais pessoas.</li>
-              <li> Possibilidade de login para salvar dados para análise posterior.</li>
-            </ul>
-          </div>
+          </p>          
           <p>
             Espero que possa ajudar desde jogadores iniciantes até os mais avançados.
           </p>
@@ -44,7 +35,7 @@ class AboutPage extends Component {
         </CardText>
         <CardActions>
           <RaisedButton primary label="Site do autor" icon={<ContentWeb/>}
-            href="https://aviebrantz.com.br" target="_blank"/>          
+            href="https://aviebrantz.com.br" target="_blank"/>
         </CardActions>
       </Card>
     );
