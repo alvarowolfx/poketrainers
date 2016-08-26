@@ -21,7 +21,7 @@ footer {
   padding-bottom: 30px;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 992px) {
   .app-container{
     padding-left: 250px;
   }

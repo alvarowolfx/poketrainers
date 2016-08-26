@@ -154,6 +154,7 @@ import PokemonEvolvePage from './PokemonEvolvePage';
 import EggChartPage from './EggChartPage';
 import CandyCalculatorPage from './CandyCalculatorPage';
 import AboutPage from './AboutPage';
+import AppShell from './AppShell';
 
 let AppWithRouter = withRouter(withWidth()(App));
 
@@ -168,6 +169,7 @@ let routes = () => (
             <Route path="candies-calculator" component={CandyCalculatorPage}/>
             <Route path="about" component={AboutPage}/>
         </Route>
+        <Route path="/app-shell" component={AppShell}/>
     </Router>
 );
 
