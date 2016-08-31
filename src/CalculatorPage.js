@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card, CardHeader, CardActions, CardText, CardTitle } from 'material-ui/Card';
+import { Card, CardHeader, CardActions, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { generatePokemonResume } from './util/pokemon-utils';
@@ -11,11 +11,13 @@ import FormIVCalculator from './iv-calculator/FormIVCalculator';
 
 import * as firebase from 'firebase';
 
+import translate from './translate';
+
 const POKEMON_EXAMPLE = {
-  name: 'Ivysaur',
-  cp: 608,
-  hp: 59,
-  dust: '1600'
+  name: 'Bulbasaur',
+  cp: 0,
+  hp: 0,
+  dust: '400'
 };
 
 class CalculatorPage extends Component {
@@ -98,12 +100,7 @@ class CalculatorPage extends Component {
       ...this.state.pokemons
     };
 
-    let newForm = {
-      name: 'Bulbasaur',
-      cp: 0,
-      hp: 0,
-      dust: '400'
-    }
+    let newForm = { ...POKEMON_EXAMPLE };
     this.setState({
       currentPokemon: {
         form: newForm,
@@ -159,20 +156,21 @@ class CalculatorPage extends Component {
   }
 
   render() {
-    let { currentPokemon, pokemons } = this.state;    
+    let { currentPokemon, pokemons } = this.state;
+    let { t } = this.props;
     return (
       <div className="calculator-container">
         <Card>
           <CardHeader
-            title="Calculadora de Individual Values (IVs)"
-            subtitle="Saiba se seu pokemon tem potencial"
+            title={t('iv-calculator.title')}
+            subtitle={t('iv-calculator.desc')}
           />
           <FormIVCalculator form={currentPokemon.form}
             onFormChange={(form) => this.onFormChange(form)}/>
           <CardActions>
-            <RaisedButton primary label="+ Adicionar"
+            <RaisedButton primary label={t('actions.add')}
               onTouchTap={() => this.addPokemon()}/>
-            <RaisedButton secondary label="Limpar Tudo"
+            <RaisedButton secondary label={t('actions.remove-all')}
               onTouchTap={() => this.removeAll()}/>
           </CardActions>
         </Card>
@@ -182,29 +180,25 @@ class CalculatorPage extends Component {
         </div>
         <br/>
         <PokemonIVList pokemons={pokemons}
-          onRemove={(key, pokemon) => this.onRemove(key,pokemon)} />
+          onRemove={(key, pokemon) => this.onRemove(key,pokemon)}/>
         <Card>
           <CardHeader
-            title="O que são Individual Values (IVs) ?"
+            title={t('iv-calculator.info.title')}
           />
-          <CardTitle subtitle="Status dos pokémons">
-            Todo pokémon possui valores de ataque, defesa e vida, desses valores
-            que internamente o jogo calcula os valores de HP e CP que conseguimos
-            ver.
+          <CardTitle subtitle={t('iv-calculator.info.pokemonStatusTitle')}>
+            {t('iv-calculator.info.pokemonStatusDesc')}
           </CardTitle>
-          <CardText>
-            Todo pokemon possui status base fixos para cada espécie.
-            Os IV, Individual Value, ou Valor Individual como diz o nome,
-            é específico de cada Pokémon e variam de 0 a 15.
-          </CardText>
-          <CardTitle subtitle="Perfeição">
-            O quão perto da perfeição seu pokemon está (15 nos 3 IVs).
+          <CardTitle subtitle={t('iv-calculator.info.baseStatusTitle')}>
+            {t('iv-calculator.info.baseStatusDesc')}
           </CardTitle>
-          <CardTitle subtitle="Simulação com Charizard">
+          <CardTitle subtitle={t('iv-calculator.info.perfectionTitle')}>
+            {t('iv-calculator.info.perfectionDesc')}
+          </CardTitle>
+          <CardTitle subtitle={t('iv-calculator.info.simulationTitle')}>
             <div className="pkm-list">
-              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2247, hp: 123, dust: 10000 }} onlyWorst/>
-              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2412, hp: 132, dust: 9000 }} onlyWorst/>
-              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2620, hp: 135, dust: 10000 }} onlyWorst/>
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2247, hp: 123, dust: 10000 }} onlyWorst t={t}/>
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2412, hp: 132, dust: 9000 }} onlyWorst t={t}/>
+              <PokemonIVItem pokemon={{name: 'Charizard', cp: 2620, hp: 135, dust: 10000 }} onlyWorst t={t}/>
             </div>
           </CardTitle>
         </Card>
@@ -213,4 +207,4 @@ class CalculatorPage extends Component {
   }
 }
 
-export default CalculatorPage;
+export default translate(CalculatorPage);

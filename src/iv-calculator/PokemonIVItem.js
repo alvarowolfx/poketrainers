@@ -22,53 +22,57 @@ import {
 
 import { generatePokemonResume } from '../util/pokemon-utils';
 
-export default class PokemonIVItem extends React.Component {
+import translate from '../translate';
+
+class PokemonIVItem extends React.Component {
 
   shouldComponentUpdate(nextProps){
-    return !isEqual(this.props.pokemon, nextProps.pokemon);
+    return !isEqual(this.props, nextProps);
   }
 
   renderTabContent(iv, ivs, grade){
+    let { t } = this.props;
     return (
       <Paper style={{padding: 15}}>
         <div className={`pkm-list-item-rank pkm-list-item-rank-${grade.toLowerCase()}`}>
           {grade}
         </div>
-        <h3 className="iv-value">{iv.perfection}% Perfeição</h3>
+        <h3 className="iv-value">{iv.perfection}% {t('common.perfection')}</h3>
         <h4 className="iv-value">Individual Values (IVs)</h4>
         <LinearProgress mode="determinate"
           min={0} max={15}
           value={iv.attackIV}
           color={red700}/>
-        <h5 className="iv-value">+{iv.attackIV} de Ataque</h5>
+        <h5 className="iv-value">+{iv.attackIV} {t('common.attack')}</h5>
         <LinearProgress mode="determinate"
           min={0} max={15}
           value={iv.defenseIV}
           color={green700}/>
-        <h5 className="iv-value">+{iv.defenseIV} de Defesa</h5>
+        <h5 className="iv-value">+{iv.defenseIV} {t('common.defense')}</h5>
         <LinearProgress mode="determinate"
           min={0} max={15}
           value={iv.staminaIV}
           color={yellow700}/>
-        <h5 className="iv-value">+{iv.staminaIV} de Vida</h5>
+        <h5 className="iv-value">+{iv.staminaIV} {t('common.stamina')}</h5>
 
-        <h4 className="iv-value">Status máximo</h4>
+        <h4 className="iv-value">{t('common.maxStatus')}</h4>
         <LinearProgress mode="determinate"
           min={0} max={ivs.best.maxCp}
           value={iv.maxCp}
           color={blue700}/>
-        <h5 className="iv-value">{iv.maxCp} CP no level máximo</h5>
+        <h5 className="iv-value">{t('iv-calculator.maxLevelCP', { cp: iv.maxCp})}</h5>
         <LinearProgress mode="determinate"
           min={0} max={ivs.best.maxHp}
           value={iv.maxHp}
           color={amber700}/>
-        <h5 className="iv-value">{iv.maxHp} HP no level máximo</h5>
+        <h5 className="iv-value">{t('iv-calculator.maxLevelHP', { hp: iv.maxHp})}</h5>
       </Paper>
     );
   }
 
   render() {
     let { cp, hp, dust, name } = this.props.pokemon;
+    let { t } = this.props;
     let resume = generatePokemonResume(name, parseInt(cp,10), parseInt(hp,10), parseInt(dust,10));
     let { pokemon, grade, perfection, ivs } = resume;
     let header = (
@@ -86,14 +90,14 @@ export default class PokemonIVItem extends React.Component {
         <Card className="pkm-list-item">
           {header}
           <CardTitle>
-            <h3>Nenhum resultado encontrado</h3>
+            <h3>{t('common.noResultFound')}</h3>
           </CardTitle>
         </Card>
       );
     }
     let tabs = [
-      { label: 'Melhor', key: 'your_best' },
-      { label: 'Pior', key: 'your_worst' },
+      { label: t('common.best'), key: 'your_best' },
+      { label: t('common.worst'), key: 'your_worst' },
     ];
     let grades = {
       your_best: grade.maxGrade.letter,
@@ -161,3 +165,5 @@ export default class PokemonIVItem extends React.Component {
     );
   }
 }
+
+export default translate(PokemonIVItem);

@@ -5,6 +5,8 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { getPokemonImageUrl, guessPokemonLevel, calcCPRange } from './util/pokemon-utils';
 import FormPokemonEvolve from './pokemon-evolve/FormPokemonEvolve';
 
+import translate from './translate';
+
 const POKEMON_EXAMPLE = {
   name: 'Eevee',
   cp: 502
@@ -46,13 +48,17 @@ class PokemonEvolvePage extends Component {
 
   renderPokemon(result){
     let { pokemon, cp, minCp, maxCp, evolutions, lvl } = result;
+    let { t } = this.props;
     if(!pokemon){
       return null;
     }
     let candies = pokemon["Candy To Evolve"];
     let title = "Final";
     if(candies > 0){
-      title = (<span><b>{pokemon["Candy To Evolve"]}</b> candies para evoluir</span>);
+      title = (<span>
+          <b>{candies}</b>{t('pokemon-evolve.candies')}
+        </span>
+      );
     }
     return (
       <div key={pokemon.PkMn} className="pkm-list">
@@ -63,11 +69,11 @@ class PokemonEvolvePage extends Component {
               {title}
               {cp ?
                 <h4 className="iv-value">
-                  {cp} CP, {lvl ? `pode estar no level ${lvl}` : 'level desconhecido'}
+                  {lvl ? t('pokemon-evolve.firstResult', { lvl, cp }) : t('pokemon-evolve.firstResultUnknownLevel', { cp })}
                 </h4>
                 :
                 <h2 className="iv-value">
-                  {minCp} CP a {maxCp} CP
+                  {t('pokemon-evolve.result', { minCp, maxCp })}
                 </h2>
               }
           </CardText>
@@ -81,15 +87,13 @@ class PokemonEvolvePage extends Component {
 
   render() {
     let { form, result } = this.state;
+    let { t } = this.props;
     return (
       <div className="calculator-container">
         <Card>
           <CardHeader
-            title="Calculadora de Evolução de Pokemons"
-            subtitle={`Com essa ferramenta você consegue estimar quanto de CP
-              seu pokemon irá ficar após evoluir.
-              Esta ferramenta não é tão precisa quanto a de cálculo de IV,
-              mas é uma forma rápida de visualizar o resultado de evoluções.`}
+            title={t('pokemon-evolve.title')}
+            subtitle={t('pokemon-evolve.desc')}
           />
           <CardText>
             <FormPokemonEvolve form={form}
@@ -105,4 +109,4 @@ class PokemonEvolvePage extends Component {
   }
 }
 
-export default PokemonEvolvePage;
+export default translate(PokemonEvolvePage);

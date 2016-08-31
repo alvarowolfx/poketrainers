@@ -16,8 +16,12 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import Divider from 'material-ui/Divider';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import Avatar from 'material-ui/Avatar';
+
+import Polyglot from 'node-polyglot';
 
 import './App.css';
 
@@ -30,13 +34,40 @@ function logPageView() {
 ReactGA.initialize("UA-37452057-7");
 logPageView();
 
+import messages from './data/i18n.json';
+
+const humanizedLocales = {
+  en: 'English',
+  'pt-BR': 'Português'
+};
+
+const locales = Object.keys(humanizedLocales);
+
 class App extends React.Component {
   constructor(props){
     super(props);
+
+    let locale = navigator.language;
+    if(!humanizedLocales[locale]){
+      locale = 'en';
+    }
+    let phrases = messages[locale];
+    let polyglot = new Polyglot({ locale });
+    polyglot.extend(phrases);
+    let t = polyglot.t.bind(polyglot);
+
     this.state = {
       open: false,
-      user: null
+      user: null,
+      locale,
+      t
     };
+  }
+
+  getChildContext() {
+    return {
+      t: this.state.t
+    }
   }
 
   componentWillMount(){
@@ -61,7 +92,16 @@ class App extends React.Component {
     });
   }
 
+  onLocaleChange(locale){
+    let phrases = messages[locale];
+    let polyglot = new Polyglot({ locale });
+    polyglot.extend(phrases);
+    let t = polyglot.t.bind(polyglot);
+    this.setState({ t, locale, open: false });
+  }
+
   renderDrawer(){
+    let { t } = this.state;
     let isLarge = this.props.width === LARGE;
     return (
       <Drawer docked={isLarge}
@@ -70,25 +110,36 @@ class App extends React.Component {
         onRequestChange={(open) => this.setState({open})}>
         <AppBar title={isLarge ? "Poke Trainers" : "Menu"} showMenuIconButton={false}/>
         <MenuItem onTouchTap={() => this.changeTab('/iv-calculator')}>
-          Calculadora de IV
+          {t('nav.iv-calculator')}
         </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/pokemon-evolve')}>
-          Calculadora de Evolução
+          {t('nav.pokemon-evolve')}
         </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/best-pokemon')}>
-          Melhores Pokemons
+          {t('nav.best-pokemon')}
         </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/candies-calculator')}>
-          Calculadora de XP e Candies
+          {t('nav.candies-calculator')}
         </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/egg-chart')}>
-          Ovos pokemon
+          {t('nav.egg-chart')}
         </MenuItem>
         <MenuItem onTouchTap={() => this.changeTab('/about')}>
-          Sobre
+          {t('nav.about')}
+        </MenuItem>
+        <Divider/>
+        <MenuItem>
+          {t('nav.language')}
+          <DropDownMenu value={this.state.locale} onChange={(evt, key, locale) => this.onLocaleChange(locale)}>
+            {locales.map( locale => {
+              return (
+                <MenuItem key={locale} value={locale} primaryText={humanizedLocales[locale]} />
+              );
+            })}
+          </DropDownMenu>
         </MenuItem>
         <MenuItem href="https://goo.gl/forms/drm31vv9xJ4GEEKk2" target="_blank">
-          Dê um feedback
+          {t('nav.feedback')}
         </MenuItem>
       </Drawer>
     );
@@ -99,17 +150,18 @@ class App extends React.Component {
   }
 
   renderLoginButton(){
+    let { t } = this.state;
     return (
       <RaisedButton
         icon={<PersonIcon/>}
-        label={'Login'}
+        label={t('nav.login')}
         onTouchTap={() => this.refs.loginDialog.open()}
         style={{marginTop: 5}}/>
     );
   }
 
   renderLoggedInButton(){
-    let { user } = this.state;
+    let { user, t } = this.state;
     return (
       <IconMenu
         iconButtonElement={
@@ -119,8 +171,8 @@ class App extends React.Component {
         }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-        <MenuItem primaryText={`Logado como ${user.displayName}`} />
-        <MenuItem primaryText="Sair" onTouchTap={ () => this.logout()}/>
+        <MenuItem primaryText={t('nav.loggedUser', { name: user.displayName })} />
+        <MenuItem primaryText={t('nav.logout')} onTouchTap={ () => this.logout()}/>
       </IconMenu>
     );
   }
@@ -148,6 +200,10 @@ class App extends React.Component {
   }
 }
 
+App.childContextTypes = {
+  t: React.PropTypes.func
+};
+
 import CalculatorPage from './CalculatorPage';
 import BestPokemonPage from './BestPokemonPage';
 import PokemonEvolvePage from './PokemonEvolvePage';
@@ -156,20 +212,20 @@ import CandyCalculatorPage from './CandyCalculatorPage';
 import AboutPage from './AboutPage';
 import AppShell from './AppShell';
 
-let AppWithRouter = withRouter(withWidth()(App));
+const AppWithRouter = withRouter(withWidth()(App));
 
 let routes = () => (
     <Router history={browserHistory} onUpdate={logPageView}>
-        <Route path="/" component={AppWithRouter}>
-            <IndexRoute component={CalculatorPage}/>
-            <Route path="iv-calculator" component={CalculatorPage}/>
-            <Route path="best-pokemon" component={BestPokemonPage}/>
-            <Route path="pokemon-evolve" component={PokemonEvolvePage}/>
-            <Route path="egg-chart" component={EggChartPage}/>
-            <Route path="candies-calculator" component={CandyCalculatorPage}/>
-            <Route path="about" component={AboutPage}/>
-        </Route>
-        <Route path="/app-shell" component={AppShell}/>
+      <Route path="/" component={AppWithRouter}>
+        <IndexRoute component={CalculatorPage}/>
+        <Route path="iv-calculator" component={CalculatorPage}/>
+        <Route path="best-pokemon" component={BestPokemonPage}/>
+        <Route path="pokemon-evolve" component={PokemonEvolvePage}/>
+        <Route path="egg-chart" component={EggChartPage}/>
+        <Route path="candies-calculator" component={CandyCalculatorPage}/>
+        <Route path="about" component={AboutPage}/>
+      </Route>
+      <Route path="/app-shell" component={AppShell}/>
     </Router>
 );
 

@@ -9,6 +9,8 @@ import FormTemplate from '../form/FormTemplate';
 
 import pokemons from '../data/pokemon_game_data.json';
 
+import translate from '../translate';
+
 const PokemonNameType = t.enums.of(
   pokemons.map( pkm => pkm.Name)
 );
@@ -27,19 +29,20 @@ const PokemonFormSchema = t.struct({
   dust: DustType
 });
 
-export default class FormIVCalculator extends React.Component {
+class FormIVCalculator extends React.Component {
 
   render() {
+    let { t } = this.props;
     let options = {
       template: FormTemplate,
       fields: {
         name: {
-          label: 'Qual o pokemon ?',
+          label: t('common.form.pokemon'),
           template: AutoCompleteFieldTemplate,
           nullOption: false
         },
         cp: {
-          label: 'CP',
+          label: t('common.form.cp'),
           template: TextFieldTemplate
         },
         hp: {
@@ -47,7 +50,7 @@ export default class FormIVCalculator extends React.Component {
           template: TextFieldTemplate
         },
         dust: {
-          label: 'Stardust necessária para power up',
+          label: t('common.form.stardust'),
           template: AutoCompleteFieldTemplate,
           nullOption: false,
           config: {
@@ -67,3 +70,5 @@ export default class FormIVCalculator extends React.Component {
     );
   }
 }
+
+export default translate(FormIVCalculator);

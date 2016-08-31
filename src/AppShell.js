@@ -10,7 +10,7 @@ export default class AppShell extends React.Component {
       <div style={{backgroundColor: '#f5f4f5', height: '100%' }}>
         <AppBar title="Poke Trainers" showMenuIconButton
           iconStyleLeft={{backgroundColor: 'transparent'}}
-          style={{position: 'fixed', top: 0, overflowY: 'hidden', marginLeft: -8 }}/>
+          style={{position: 'fixed', top: 0, overflowY: 'hidden'}}/>
         <div style={{ marginLeft: '2%', marginRight: '2%', marginTop: 72,  paddingBottom: 30}}>
           <Card style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: 80}}>
             <CardTitle subtitle="Carregando ..."/>

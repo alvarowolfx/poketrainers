@@ -9,6 +9,8 @@ import FormTemplate from '../form/FormTemplate';
 
 import pokemons from '../data/pokemon_game_data.json';
 
+import translate from '../translate';
+
 const PokemonNameType = t.enums.of(
   pokemons
     .filter( pkm => pkm["Evolution"] !== null)
@@ -25,19 +27,20 @@ const PokemonFormSchema = t.struct({
   cp: Positive
 });
 
-export default class FormPokemonEvolve extends React.Component {
+class FormPokemonEvolve extends React.Component {
 
   render() {
+    let { t } = this.props;
     let options = {
       template: FormTemplate,
       fields: {
         name: {
-          label: 'Qual o pokemon ?',
+          label: t('common.form.pokemon'),
           template: AutoCompleteFieldTemplate,
           nullOption: false
         },
         cp: {
-          label: 'Combat Points (CP)',
+          label: t('common.form.cp'),
           template: TextFieldTemplate
         }
       }
@@ -56,3 +59,5 @@ export default class FormPokemonEvolve extends React.Component {
     );
   }
 }
+
+export default translate(FormPokemonEvolve);

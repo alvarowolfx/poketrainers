@@ -5,9 +5,17 @@ import Paper from 'material-ui/Paper';
 import { Tab, Tabs } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
-import { getPokemonImageUrl } from './util/pokemon-utils';
+import { getPokemonImageUrl, findPokemonInGameDataById } from './util/pokemon-utils';
 import eggChart from './data/egg_chart.json';
 const eggIndexes = Object.keys(eggChart);
+
+import translate from './translate';
+
+const pokemons = {};
+for(let egg of eggIndexes) {
+  let ids = eggChart[egg];
+  pokemons[egg] = ids.map(findPokemonInGameDataById);
+}
 
 class EggChartPage extends Component {
   constructor(props){
@@ -18,10 +26,6 @@ class EggChartPage extends Component {
     };
   }
 
-  componentWillMount(){
-
-  }
-
   handleChange(value){
     this.setState({
       selectedIndex: value,
@@ -29,12 +33,13 @@ class EggChartPage extends Component {
   }
 
   render() {
+    let { t } = this.props;
     return (
       <div className="calculator-container">
         <Card>
           <CardHeader
-            title="Ovos pokemons"
-            subtitle="Saiba quais pokemons podem sair de cada ovo"
+            title={t('egg-chart.title')}
+            subtitle={t('egg-chart.desc')}
           />
         </Card>
         <br/>
@@ -51,9 +56,9 @@ class EggChartPage extends Component {
           {eggIndexes.map( (key,i) => {
             return (
               <Paper key={i} className="egg-chart-slide" zDepth={1}>
-                {eggChart[key].map( pkmId => {
-                  return <img key={pkmId} src={getPokemonImageUrl(pkmId)} height="60px"
-                    alt={pkmId}/>
+                {pokemons[key].map( pkm => {
+                  return <img key={pkm.PkMn} alt={pkm.Name}
+                    src={getPokemonImageUrl(pkm.PkMn)} height="60px"/>
                 })}
               </Paper>
             );
@@ -64,4 +69,4 @@ class EggChartPage extends Component {
   }
 }
 
-export default EggChartPage;
+export default translate(EggChartPage);

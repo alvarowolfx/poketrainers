@@ -13,6 +13,8 @@ import PokemonCandyList from './candy-calculator/PokemonCandyList';
 
 import * as firebase from 'firebase';
 
+import translate from './translate';
+
 const POKEMON_EXAMPLE = {
   name: 'Pidgey',
   quantity: 15,
@@ -24,7 +26,7 @@ function sum(arr, attr){
   return arr.reduce( (s,v) => (s+v[attr]),0);
 }
 
-export default class CandyCalculatorPage extends Component {
+class CandyCalculatorPage extends Component {
   constructor(props){
     super(props);
 
@@ -151,6 +153,7 @@ export default class CandyCalculatorPage extends Component {
 
   render() {
     let { form, entries } = this.state;
+    let { t } = this.props;
     let arrEntries = Object.keys(entries).map( k => {
       let { name, quantity, candies, transfer } = entries[k];
       return getPokemonCandyResume(name,quantity, candies, transfer === 1)
@@ -159,14 +162,8 @@ export default class CandyCalculatorPage extends Component {
       <div className="calculator-container">
         <Card>
           <CardHeader
-            title="Calculadora de Candies"
-            subtitle={`
-              Aqui você consegue otimizar a quantidade de transferências de
-              pokemons para que você possa evoluir e ganhar experiência(XP).
-              Escolha o pokemon, a quantidade que você possui dele, a quantidade
-              de candies que você já possui e se vai transferir as evoluções.
-              Nós vamos calcular para você quanto de experência vai ganhar no total.
-              `}
+            title={t('candies-calculator.title')}
+            subtitle={t('candies-calculator.desc')}            
           />
           <FormCandyCalculator form={form}
             onFormChange={(form) => this.onFormChange(form)}/>
@@ -202,3 +199,5 @@ export default class CandyCalculatorPage extends Component {
     );
   }
 }
+
+export default translate(CandyCalculatorPage);

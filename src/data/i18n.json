@@ -1,0 +1,159 @@
+{
+  "en": {
+    "nav": {
+      "language": "Language",
+      "iv-calculator": "IV Calculator",
+      "pokemon-evolve": "Evolution Calculator",
+      "best-pokemon": "Best Pokemons",
+      "candies-calculator": "Candies Calculator",
+      "egg-chart": "Egg Chart",
+      "about": "About",
+      "feedback": "Give a feedback",
+      "login": "Login",
+      "loggedUser": "Logged as %{name}",
+      "logout": "Logout"
+    },
+    "egg-chart": {
+      "title": "Egg pokemon chart",
+      "desc": "Know with pokemon can be obtained in each egg type"
+    },
+    "iv-calculator": {
+      "title": "Individual Value (IVs) Calculator",
+      "desc": "Know which of your pokemon have the potential to be a champion.",
+      "maxLevelCP": "%{cp} CP at max level",
+      "maxLevelHP": "%{hp} HP at max level",
+      "info": {
+        "title": "What are Individual Values (IVs) ?",
+        "pokemonStatusTitle": "Pokémons Status",
+        "pokemonStatusDesc": "Every pokémon have values for attack, defense and stamina, from these values internally the game calculate the values for HP and CP that we see in the game.",
+        "baseStatusTitle": "Base Status",
+        "baseStatusDesc": "Every pokémon have fixed base values for every specie in the game. The Individual Value(IV), as the name says, is specific for every pokémon,  varying between 0 and 15 in each attribute.",
+        "perfectionTitle": "Perfection",
+        "perfectionDesc": "It's a metric that says how close your pokémon is from beeing perfect (having 15 IV points in every attribute).",
+        "simulationTitle": "Simulation with a Charizard"
+      }
+    },
+    "pokemon-evolve": {
+      "title": "Pokemon Evolution Calculator",
+      "desc": "With this tool you can estimate how much CP your pokémon will have after a evolution. This tool it's not so precise as the IV calculator, but it's a fast way to see the results of a evolution.",
+      "candies": " to evolve",
+      "firstResult": "%{cp} CP, can be at level %{lvl}",
+      "firstResultUnknownLevel": "%{cp} CP, unknown level",
+      "result": "%{minCp} CP to %{maxCp} CP"
+    },
+    "best-pokemon": {
+      "title": "Best Pokemons",
+      "desc": "Kwow which pokémons are the best for each situation, based on their base status.",
+      "bestAttack": "Best Attack",
+      "bestDefense": "Best Defense",
+      "bestStamina": "Best Stamina",
+      "bestOverall": "Best overall",
+      "bestCP": "Best Combat Points (CP)"
+    },
+    "candies-calculator": {
+      "title": "Candies Calculator",
+      "desc": "Here you can optimize the pokemon transfer for evolving and earning experience points (XP). Choose the pokemon, how much pokemons and candies you have from this specie. We will calculate for you how much XP you will earn after the evolutions and how much time you will spend (important if you want to use a Lucky Egg)."      
+    },
+    "common": {
+      "best": "Best",
+      "worst": "Worst",
+      "maxStatus": "Max status",
+      "perfection": "Perfection",
+      "attack": "Attack",
+      "defense": "Defense",
+      "stamina": "Stamina",
+      "noResultFound": "No results found.",
+      "form": {
+        "pokemon": "Which pokemon ?",
+        "cp": "Combat Points (CP)",
+        "stardust": "Stardust needed to power up",
+        "quantity": "Pokémon count",
+        "candies": "Candies count"
+      }
+    },
+    "actions": {
+      "add": "+ Add",
+      "remove-all": "Remove all",
+      "loadMore": "Load more pokemons"
+    }
+  },
+  "pt-BR": {
+    "nav": {
+      "hello": "Olá mundo",
+      "language": "Idioma",
+      "iv-calculator": "Calculadora de IV",
+      "pokemon-evolve": "Calculadora de Evolução",
+      "best-pokemon": "Melhores Pokemons",
+      "candies-calculator": "Calculadora de XP e Candies",
+      "egg-chart": "Ovos Pokemon",
+      "about": "Sobre",
+      "feedback": "Dê um feedback",
+      "login": "Entrar",
+      "loggedUser": "Logado como %{name}",
+      "logout": "Sair"
+    },
+    "egg-chart": {
+      "title": "Ovos pokemons",
+      "desc": "Saiba quais pokemons podem sair de cada ovo"
+    },
+    "iv-calculator": {
+      "title": "Calculadora de Individual Value (IVs)",
+      "desc": "Saiba qual do seus pokemons tem o potencial de ser o campeão.",
+      "maxLevelCP": "%{cp} CP no level máximo",
+      "maxLevelHP": "%{hp} HP no level máximo",
+      "info": {
+        "title": "O que são Individual Values (IVs) ?",
+        "pokemonStatusTitle": "Status dos pokémons",
+        "pokemonStatusDesc": "Todo pokémon possui valores de ataque, defesa e vida, desses valores que internamente o jogo calcula os valores de HP e CP que conseguimos ver.",
+        "baseStatusTitle": "Status base",
+        "baseStatusDesc": "Todo pokemon possui status base fixos para cada espécie. Os IV, Individual Value, ou Valor Individual como diz o nome, é específico de cada Pokémon e variam de 0 a 15.",
+        "perfectionTitle": "Perfeição",
+        "perfectionDesc": "O quão perto da perfeição seu pokemon está (15 nos 3 IVs).",
+        "simulationTitle": "Simulação com Charizard"
+      }
+    },
+    "pokemon-evolve": {
+      "title": "Calculadora de Evolução de Pokemons",
+      "desc": "Com essa ferramenta você consegue estimar quanto de CP seu pokemon irá ficar após evoluir. Esta ferramenta não é tão precisa quanto a de cálculo de IV, mas é uma forma rápida de visualizar o resultado de evoluções.",
+      "candies": " para evoluir",
+      "firstResult": "%{cp} CP, pode estar no level %{lvl}",
+      "firstResultUnknownLevel": "%{cp} CP, level desconhecido",
+      "result": "%{minCp} CP a %{maxCp} CP"
+    },
+    "best-pokemon": {
+      "title": "Melhores Pokemons",
+      "desc": "Saiba quais pokemons os melhores pokemons para cada situação, baseado em seus status bases.",
+      "bestAttack": "Melhor para Ataque",
+      "bestDefense": "Melhor para Defesa",
+      "bestStamina": "Melhor vida",
+      "bestOverall": "Melhor no geral",
+      "bestCP": "Combat Points (CP) mais alto"
+    },
+    "candies-calculator": {
+      "title": "Calculadora de Candies",
+      "desc": "Aqui você consegue otimizar a quantidade de transferências de pokemons para que você possa evoluir e ganhar experiência(XP). Escolha o pokemon, a quantidade que você possui dele, a quantidade de candies que você já possui e se vai transferir as evoluções. Nós vamos calcular para você quanto de experência vai ganhar no total."
+    },
+    "common": {
+      "best": "Melhor",
+      "worst": "Pior",
+      "maxStatus": "Status máximo",
+      "perfection": "Perfeição",
+      "attack": "Ataque",
+      "defense": "Defesa",
+      "stamina": "Vida",
+      "noResultFound": "Nenhum resultado encontrado.",
+      "form": {
+        "pokemon": "Qual o pokemon ?",
+        "cp": "Combat Points (CP)",
+        "stardust": "Stardust necessária para power up",
+        "quantity": "Quantidade de Pokémons",
+        "candies": "Quantidade de Candies"
+      }
+    },
+    "actions": {
+      "add": "+ Adicionar",
+      "remove-all": "Limpar tudo",
+      "loadMore": "Carregar mais pokemons"
+    }
+  }
+}

@@ -47,6 +47,7 @@
   "dependencies": {
     "firebase": "^3.2.1",
     "material-ui": "^0.15.4",
+    "node-polyglot": "^2.0.0",
     "pokemong-go-iv-calculator": "andromedado/pokemon-go-iv-calculator",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -55,7 +56,7 @@
     "react-motion": "^0.4.4",
     "react-router": "^2.6.1",
     "react-swipeable-views": "^0.6.5",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^1.0.0",    
     "tcomb-form": "^0.9.10"
   },
   "scripts": {

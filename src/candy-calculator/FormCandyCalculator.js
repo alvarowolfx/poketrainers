@@ -10,6 +10,8 @@ import FormTemplate from '../form/FormTemplate';
 
 import pokemons from '../data/pokemon_game_data.json';
 
+import translate from '../translate';
+
 const PokemonNameType = t.enums.of(
   pokemons
     .filter( pkm => pkm["Candy To Evolve"] > 0)
@@ -30,23 +32,24 @@ const PokemonFormSchema = t.struct({
   //transfer: YesNoType
 });
 
-export default class FormCandyCalculator extends React.Component {
+class FormCandyCalculator extends React.Component {
 
   render() {
+    let { t } = this.props;
     let options = {
       template: FormTemplate,
       fields: {
         name: {
-          label: 'Qual o pokemon ?',
+          label: t('common.form.pokemon'),
           template: AutoCompleteFieldTemplate,
           nullOption: false
         },
         quantity: {
-          label: 'Quantidade de pokemons',
+          label: t('common.form.quantity'),
           template: TextFieldTemplate
         },
         candies: {
-          label: 'Quantidade de candies',
+          label: t('common.form.candies'),
           template: TextFieldTemplate
         },
         transfer: {
@@ -70,3 +73,5 @@ export default class FormCandyCalculator extends React.Component {
     );
   }
 }
+
+export default translate(FormCandyCalculator);
