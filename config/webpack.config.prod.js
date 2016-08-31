@@ -137,6 +137,16 @@ module.exports = {
     }),
     new ExtractTextPlugin('static/css/[name].[contenthash:8].css'),
     new AppCachPlugin({
+      cache: [
+        '/iv-calculator',
+        '/best-pokemon',
+        '/pokemon-evolve',
+        '/egg-chart',
+        '/candies-calculator',
+        '/about',
+        '/',
+        '*.png'
+      ],
       output: 'poketrainers.manifest'
     })
   ]
