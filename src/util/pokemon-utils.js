@@ -6,7 +6,7 @@ import { padLeft } from './string-utils';
 import pokemonData from '../data/pokemon_game_data.json';
 import levelData from '../data/level_game_data.json';
 
-function findPokemonInGameData(pokemonName){
+export function findPokemonInGameData(pokemonName){
   let search = pokemonData.filter( p => p.Name === pokemonName)
   if(search){
     return {
@@ -18,7 +18,7 @@ function findPokemonInGameData(pokemonName){
   }
 }
 
-function findPokemonInGameDataById(pokemonId){
+export function findPokemonInGameDataById(pokemonId){
   let search = pokemonData.filter( p => p.PkMn === +pokemonId)
   if(search){
     return {
@@ -202,7 +202,15 @@ export function getPokemonCandyResume(pokemonName, quantity, candies, transfer){
     quantity -= pokemonsToEvolve;
 
     candiesLeft = candies - (pokemonsToEvolve*candiesToEvolve);
-    pokemonsToEvolve += Math.floor(candiesLeft/candiesToEvolve);
+    //Recover 1 candy for each evolution
+    candiesLeft += pokemonsToEvolve;
+
+    if(quantity > 0){
+      let extraPokemonsToEvolve = Math.floor(candiesLeft/candiesToEvolve);
+      candiesLeft -= (extraPokemonsToEvolve*candiesToEvolve);
+      pokemonsToEvolve += extraPokemonsToEvolve;
+      quantity -= extraPokemonsToEvolve;
+    }
 
     if(quantity > candiesToEvolve){
       let possibleEvolutions = Math.floor(quantity/(candiesToEvolve+1));
