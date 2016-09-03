@@ -11,6 +11,7 @@ import * as firebase from 'firebase';
 
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import AppBar from 'material-ui/AppBar';
+import Snackbar from 'material-ui/Snackbar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
@@ -38,7 +39,7 @@ import messages from './data/i18n.json';
 
 const humanizedLocales = {
   en: 'English',
-  'pt-BR': 'Português'
+  'pt-br': 'Português'
 };
 
 const locales = Object.keys(humanizedLocales);
@@ -47,7 +48,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    let locale = navigator.language;
+    let locale = navigator.language.toLowerCase();
     if(!humanizedLocales[locale]){
       locale = 'en';
     }
@@ -58,6 +59,7 @@ class App extends React.Component {
 
     this.state = {
       open: false,
+      update: false,
       user: null,
       locale,
       t
@@ -76,6 +78,18 @@ class App extends React.Component {
         user
       });
     });
+
+    if('applicationCache' in window){
+      applicationCache.onupdateready = function() {
+        this.setState({
+          update: true
+        });
+      }.bind(this);
+    }
+  }
+
+  update(){
+    location.reload();
   }
 
   toggleMenu(){
@@ -178,7 +192,7 @@ class App extends React.Component {
   }
 
   render() {
-    let { user } = this.state;
+    let { user, update, t } = this.state;
     return (
       <div className="app">
         <AppBar title="Poke Trainers" showMenuIconButton
@@ -187,6 +201,10 @@ class App extends React.Component {
           style={{position: 'fixed', top: 0, overflowY: 'hidden'}}/>
         {this.renderDrawer()}
         <div className="app-container">
+          <Snackbar open={update} action={t('actions.update')}
+            message={t('common.updateMessage')}
+            autoHideDuration={60*60}
+            onActionTouchTap={() => this.update()}/>
           <LoginDialog ref='loginDialog'/>
           {React.cloneElement(this.props.children,{ user })}
           <footer>

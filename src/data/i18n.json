@@ -52,7 +52,7 @@
     },
     "candies-calculator": {
       "title": "Candies Calculator",
-      "desc": "Here you can optimize the pokemon transfer for evolving and earning experience points (XP). Choose the pokemon, how much pokemons and candies you have from this specie. We will calculate for you how much XP you will earn after the evolutions and how much time you will spend (important if you want to use a Lucky Egg)."      
+      "desc": "Here you can optimize the pokemon transfer for evolving and earning experience points (XP). Choose the pokemon, how much pokemons and candies you have from this specie. We will calculate for you how much XP you will earn after the evolutions and how much time you will spend (important if you want to use a Lucky Egg)."
     },
     "common": {
       "best": "Best",
@@ -63,6 +63,7 @@
       "defense": "Defense",
       "stamina": "Stamina",
       "noResultFound": "No results found.",
+      "updateMessage": "A new version of the app has downloaded",
       "form": {
         "pokemon": "Which pokemon ?",
         "cp": "Combat Points (CP)",
@@ -73,11 +74,12 @@
     },
     "actions": {
       "add": "+ Add",
+      "update": "Update",
       "remove-all": "Remove all",
       "loadMore": "Load more pokemons"
     }
   },
-  "pt-BR": {
+  "pt-br": {
     "nav": {
       "hello": "Olá mundo",
       "language": "Idioma",
@@ -142,6 +144,7 @@
       "defense": "Defesa",
       "stamina": "Vida",
       "noResultFound": "Nenhum resultado encontrado.",
+      "updateMessage": "Uma nova versão do app foi baixada",
       "form": {
         "pokemon": "Qual o pokemon ?",
         "cp": "Combat Points (CP)",
@@ -152,6 +155,7 @@
     },
     "actions": {
       "add": "+ Adicionar",
+      "update": "Atualizar",
       "remove-all": "Limpar tudo",
       "loadMore": "Carregar mais pokemons"
     }
