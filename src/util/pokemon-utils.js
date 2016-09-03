@@ -1,12 +1,14 @@
+/*
+  @flow
+ */
 
-//import { pokemonByName  } from 'pokemon-go-iv-calculator/support/pokedex';
 import * as ivCalculator from 'pokemon-go-iv-calculator';
 import { padLeft } from './string-utils';
 
 import pokemonData from '../data/pokemon_game_data.json';
 import levelData from '../data/level_game_data.json';
 
-export function findPokemonInGameData(pokemonName){
+export function findPokemonInGameData(pokemonName: string){
   let search = pokemonData.filter( p => p.Name === pokemonName)
   if(search){
     return {
@@ -18,7 +20,7 @@ export function findPokemonInGameData(pokemonName){
   }
 }
 
-export function findPokemonInGameDataById(pokemonId){
+export function findPokemonInGameDataById(pokemonId: number){
   let search = pokemonData.filter( p => p.PkMn === +pokemonId)
   if(search){
     return {
@@ -94,7 +96,7 @@ function findEvolutions(evolutions){
   return ids.map(findPokemonInGameDataById);
 }
 
-export function guessPokemonLevel(pokemonName, cp){
+export function guessPokemonLevel(pokemonName: string, cp: number){
   for(let lvl = 1; lvl <= 80; lvl++){
       let range = calcCPRange(pokemonName, lvl);
       if(range.minCp <= cp && range.maxCp >= cp){
@@ -104,7 +106,7 @@ export function guessPokemonLevel(pokemonName, cp){
   return null;
 }
 
-export function calcCPRange(pokemonName, lvl, cp){
+export function calcCPRange(pokemonName: string, lvl: number, cp?: number){
   let pokemon = findPokemonInGameData(pokemonName);
   let range = { };
   let evolutions = [];
@@ -120,7 +122,7 @@ export function calcCPRange(pokemonName, lvl, cp){
   return { pokemon, evolutions, ...range, lvl, cp };
 }
 
-export function generatePokemonResume(pokemonName, cp, hp, dust){
+export function generatePokemonResume(pokemonName: string, cp: number, hp: number, dust: number){
   let pokemon = findPokemonInGameData(pokemonName);
   if(pokemonName === 'Nidoran♀'){
     pokemonName = 'Nidoran_Female';
@@ -179,7 +181,10 @@ export function generatePokemonResume(pokemonName, cp, hp, dust){
   }
 }
 
-export function getPokemonImageUrl(id, size="thumb",type="real"){
+type ImageSize = 'thumb' | 'medium' | 'full';
+type ImageType = 'real' | 'cartoon';
+
+export function getPokemonImageUrl(id: number | string, size: ImageSize = 'thumb',type: ImageType = "real"): string{
   let pokemonId = padLeft(id,3);
   let avatar = `https://storage.googleapis.com/poketrainers-b1785.appspot.com/pokemons/${type}/${size}/${pokemonId}.png`;
   return avatar;
@@ -188,7 +193,31 @@ export function getPokemonImageUrl(id, size="thumb",type="real"){
 const XP_PER_EVOLUTION = 500;
 const TIME_PER_EVOLUTION = 24;
 
-export function getPokemonCandyResume(pokemonName, quantity, candies, transfer){
+type PokemonResumeOptions = {
+  pokemonName: string,
+  quantity: number,
+  candies: number,
+  transfer?: boolean
+};
+
+type PokemonCandyResume = {
+  pokemon: any,
+  quantity: number,
+  candies: number,
+  xp: number,
+  xpWithLuckyEgg: number,
+  pokemonsToEvolve: number,
+  pokemonsToTransfer: number,
+  evolutionsToTransfer: number,
+  candiesLeft: number,
+  pokemonsLeft: number,
+  time: number
+};
+
+export function getPokemonCandyResume(options: PokemonResumeOptions): PokemonCandyResume{
+
+  let { pokemonName, quantity, candies, transfer } = options;
+
   let originalQuantity = quantity;
 
   let pokemon = findPokemonInGameData(pokemonName);
@@ -234,7 +263,7 @@ export function getPokemonCandyResume(pokemonName, quantity, candies, transfer){
   }else{
     pokemonsToEvolve = quantity;
     quantity = 0;
-    candiesLeft = candies - (pokemonsToEvolve*candiesToEvolve);
+    candiesLeft = candies - (pokemonsToEvolve*candiesToEvolve) + pokemonsToEvolve;
   }
   let xp = XP_PER_EVOLUTION * pokemonsToEvolve;
   return {

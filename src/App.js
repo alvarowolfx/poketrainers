@@ -165,7 +165,7 @@ class App extends React.Component {
     return (
       <IconMenu
         iconButtonElement={
-          <IconButton>
+          <IconButton style={{padding: 0, margin: 0}}>
             <Avatar src={user.photoURL} size={36}/>
           </IconButton>
         }

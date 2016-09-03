@@ -1,3 +1,7 @@
+/*
+  @flow
+ */
+
 import React, { Component } from 'react';
 
 import { Card, CardHeader, CardActions } from 'material-ui/Card';
@@ -26,8 +30,30 @@ function sum(arr, attr){
   return arr.reduce( (s,v) => (s+v[attr]),0);
 }
 
+type CandyForm = {
+  name: string,
+  quantity: number,
+  candies: number,
+  transfer?: 0 | 1
+};
+
+type State = {
+  form: CandyForm,
+  isValid: boolean,
+  entries: { [key: string]: any }
+};
+
+type Props = {
+  user: any,
+  t: (key: string) => string
+};
+
 class CandyCalculatorPage extends Component {
-  constructor(props){
+  dataRef: any;
+  state: State;
+  props: Props;
+
+  constructor(props: Props){
     super(props);
 
     let form = {
@@ -41,7 +67,6 @@ class CandyCalculatorPage extends Component {
     };
 
     this.dataRef = null;
-    this.onFormChange = this.onFormChange.bind(this);
   }
 
   componentWillMount(){
@@ -139,7 +164,7 @@ class CandyCalculatorPage extends Component {
     });
   }
 
-  onFormChange(form){
+  onFormChange = (form) => {
     let isValid = form !== null;
     if(!isValid){
       return;
@@ -156,14 +181,19 @@ class CandyCalculatorPage extends Component {
     let { t } = this.props;
     let arrEntries = Object.keys(entries).map( k => {
       let { name, quantity, candies, transfer } = entries[k];
-      return getPokemonCandyResume(name,quantity, candies, transfer === 1)
+      return getPokemonCandyResume({
+        pokemonName: name,
+        quantity,
+        candies,
+        transfer: transfer === 1
+      });
     });
     return (
       <div className="calculator-container">
         <Card>
           <CardHeader
             title={t('candies-calculator.title')}
-            subtitle={t('candies-calculator.desc')}            
+            subtitle={t('candies-calculator.desc')}
           />
           <FormCandyCalculator form={form}
             onFormChange={(form) => this.onFormChange(form)}/>

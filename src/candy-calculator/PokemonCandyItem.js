@@ -1,4 +1,6 @@
-
+/*
+  @flow
+ */
 import React from 'react';
 
 import { Card, CardHeader } from 'material-ui/Card';
@@ -15,13 +17,18 @@ import { getPokemonCandyResume } from '../util/pokemon-utils';
 
 export default class PokemonCandyItem extends React.Component {
 
-  shouldComponentUpdate(nextProps){
+  shouldComponentUpdate(nextProps: any){
     return !isEqual(this.props.entry, nextProps.entry);
   }
 
   render() {
     let { name, quantity, candies, transfer } = this.props.entry;
-    let e = getPokemonCandyResume(name,quantity,candies,transfer === 1);
+    let e = getPokemonCandyResume({
+      pokemonName: name,
+      quantity,
+      candies,
+      transfer: transfer === 1
+    });
     name = e.pokemon.Name;
     return (
       <Card className='pkm-list-item'>
