@@ -145,7 +145,9 @@ module.exports = {
         '/candies-calculator',
         '/about',
         '/',
-        '*.png'
+        'https://storage.googleapis.com/poketrainers-b1785.appspot.com/pokemons/real/medium/*.png',
+        'https://storage.googleapis.com/poketrainers-b1785.appspot.com/pokemons/real/thumb/*.png',
+        'https://storage.googleapis.com/poketrainers-b1785.appspot.com/pokemons/real/full/*.png'
       ],
       output: 'poketrainers.manifest'
     })
