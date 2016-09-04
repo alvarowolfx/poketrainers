@@ -15,14 +15,17 @@ import isEqual from 'lodash/isEqual';
 
 import { getPokemonCandyResume } from '../util/pokemon-utils';
 
-export default class PokemonCandyItem extends React.Component {
+import translate from '../translate';
+
+class PokemonCandyItem extends React.Component {
 
   shouldComponentUpdate(nextProps: any){
-    return !isEqual(this.props.entry, nextProps.entry);
+    return !isEqual(this.props, nextProps);
   }
 
   render() {
     let { name, quantity, candies, transfer } = this.props.entry;
+    let { t } = this.props;
     let e = getPokemonCandyResume({
       pokemonName: name,
       quantity,
@@ -49,18 +52,20 @@ export default class PokemonCandyItem extends React.Component {
           avatar={e.pokemon.avatar}
         />
         <List className="instructions">
-          <Subheader>Instruções</Subheader>
-          <li>Transferir {e.pokemonsToTransfer} {name}(s)</li>
-          <li>Evoluir {e.pokemonsToEvolve} {name}(s)</li>
-          <li>{e.pokemonsLeft} {name}(s) restantes</li>
-          <li>{e.candiesLeft} candies restantes</li>
+          <Subheader>{t('candies-calculator.instructions')}</Subheader>
+          <li>{t('candies-calculator.transferPokemon', { transfer: e.pokemonsToTransfer , pokemon: name })}</li>
+          <li>{t('candies-calculator.evolvePokemon', { evolve: e.pokemonsToEvolve , pokemon: name })}</li>
+          <li>{t('candies-calculator.pokemonsLeft', { pokemonsLeft: e.pokemonsLeft , pokemon: name })}</li>
+          <li>{t('candies-calculator.candiesLeft', { candiesLeft: e.candiesLeft })}</li>
           <Divider />
-          <Subheader>Resultados</Subheader>
-          <li>{e.xp} de xp ganho</li>
-          <li>{e.xpWithLuckyEgg} de xp com Lucky Egg</li>
-          <li>{e.time/60} minutos perdidos</li>
+          <Subheader>{t('candies-calculator.results')}</Subheader>
+          <li>{t('candies-calculator.xpWon', { xp: e.xp })}</li>
+          <li>{t('candies-calculator.xpWonLuckyEgg', { xp: e.xpWithLuckyEgg })}</li>
+          <li>{t('candies-calculator.timeSpend', { time: e.time })}</li>
         </List>
       </Card>
     );
   }
 }
+
+export default translate(PokemonCandyItem);

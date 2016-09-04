@@ -52,7 +52,24 @@
     },
     "candies-calculator": {
       "title": "Candies Calculator",
-      "desc": "Here you can optimize the pokemon transfer for evolving and earning experience points (XP). Choose the pokemon, how much pokemons and candies you have from this specie. We will calculate for you how much XP you will earn after the evolutions and how much time you will spend (important if you want to use a Lucky Egg)."
+      "desc": "Here you can optimize the pokemon transfer for evolving and earning experience points (XP). Choose the pokemon, how much pokemons and candies you have from this specie. We will calculate for you how much XP you will earn after the evolutions and how much time you will spend (important if you want to use a Lucky Egg).",
+      "finalResultTitle": "Final result",
+      "finalResultDesc": "What has to be done and how much xp you can earn.",
+      "instructions": "Instructions",
+      "transferPokemon": "Transfer %{transfer} %{pokemon}(s)",
+      "evolvePokemon": "Evolve %{evolve} %{pokemon}(s)",
+      "pokemonsLeft": "%{pokemonsLeft} %{pokemon}(s) left",
+      "candiesLeft": "%{candiesLeft} candies left",
+      "results": "Results",
+      "xpWon": "%{xp} xp won",
+      "xpWonLuckyEgg": "%{xp} xp won with Lucky Egg",
+      "timeSpend": "%{time} minutes lost",
+      "timeLeft": "%{time} minutes left with Lucky Egg"
+    },
+    "about":{
+      "title": "About the website",
+      "desc": "<p><b>Poke Trainers</b> began to be created in August 2016 in order to help Pokemon Go players. It was inspired by the great work don by <a href=\"https://pokeassistant.com\" target=\"_blank\">Poke Assistant</a> and the union of several people on Reddit, Github and other sources that wre used to present the information here.</p> <p> The project idea was to create a website with a more modern interface and with some features that had not seen on other sites with the same purpose, such as to compare the IVs of varios Pokemon, calculare XP by evolving with several pokemon also among other things.</p> <p> I hope you can help players from beginners to the most advanced. </p> Cheers,<br/> Alvaro Viebrantz",
+      "authorSite": "Author website"
     },
     "common": {
       "best": "Best",
@@ -133,7 +150,24 @@
     },
     "candies-calculator": {
       "title": "Calculadora de Candies",
-      "desc": "Aqui você consegue otimizar a quantidade de transferências de pokemons para que você possa evoluir e ganhar experiência(XP). Escolha o pokemon, a quantidade que você possui dele, a quantidade de candies que você já possui e se vai transferir as evoluções. Nós vamos calcular para você quanto de experência vai ganhar no total."
+      "desc": "Aqui você consegue otimizar a quantidade de transferências de pokemons para que você possa evoluir e ganhar experiência(XP). Escolha o pokemon, a quantidade que você possui dele, a quantidade de candies que você já possui e se vai transferir as evoluções. Nós vamos calcular para você quanto de experência vai ganhar no total.",
+      "finalResultTitle": "Resultado final",
+      "finalResultDesc": "O que deverá ser feito e quanto de xp você poderá ganhar.",
+      "instructions": "Instruções",
+      "transferPokemon": "Transferir %{transfer} %{pokemon}(s)",
+      "evolvePokemon": "Evoluir %{evolve} %{pokemon}(s)",
+      "pokemonsLeft": "%{pokemonsLeft} %{pokemon}(s) restantes",
+      "candiesLeft": "%{candiesLeft} candies restantes",
+      "results": "Resultados",
+      "xpWon": "%{xp} de xp ganho",
+      "xpWonLuckyEgg": "%{xp} de xp com Lucky Egg",
+      "timeSpend": "%{time} minutos perdidos",
+      "timeLeft": "%{time} minutos restantes de Lucky Egg"
+    },
+    "about":{
+      "title": "Sobre o site",
+      "desc": "<p>O site <b>Poke Trainers</b> começou a ser criado em agosto de 2016 com o intuito de ajudar os jogadores de Pokemon Go. Foi inspirado no grande trabalho feito pelo site <a href=\"https://pokeassistant.com\" target=\"_blank\">Poke Assistant</a> e da união de diversas pessoas no Reddit, Github e outras fontes que foram utilizadas para apresentar as informações aqui. </p> <p> A intenção do projeto foi criar um site com uma interface mais moderna e que com algumas funcionalidades que não tinha visto em outros sites com o mesmo intuito, como por exemplo comparar os IVs de diversos pokemons, calcular XP por evolução com vários pokemons também, entre outras coisas. </p> <p> Espero que possa ajudar desde jogadores iniciantes até os mais avançados. </p> Abraços,<br/> Alvaro Viebrantz",
+      "authorSite": "Site do autor"
     },
     "common": {
       "best": "Melhor",

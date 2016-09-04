@@ -209,17 +209,17 @@ class CandyCalculatorPage extends Component {
           <PokemonCandyItem entry={form}/>
           <Card>
             <CardHeader
-              title="Resultado final"
-              subtitle="O que deverá ser feito e quanto de xp você poderá ganhar."
+              title={t('candies-calculator.finalResultTitle')}
+              subtitle={t('candies-calculator.finalResultDesc')}              
             />
             <List className="instructions">
-              <Subheader>Instruções</Subheader>
-              <li>{sum(arrEntries,'pokemonsToTransfer')} pokemons a transferir </li>
-              <li>{sum(arrEntries,'pokemonsToEvolve')} pokemons a evoluir </li>
-              <li>{sum(arrEntries,'xp')} xp </li>
-              <li>{sum(arrEntries,'xpWithLuckyEgg')} xp com Lucky Egg</li>
-              <li>{sum(arrEntries,'time')/60} minutos </li>
-              <li>{30 - sum(arrEntries,'time')/60} minutos restantes de Lucky Egg</li>
+              <Subheader>{t('candies-calculator.instructions')}</Subheader>
+              <li>{t('candies-calculator.transferPokemon', { transfer: sum(arrEntries,'pokemonsToTransfer') , pokemon: 'pokemon' })}</li>
+              <li>{t('candies-calculator.evolvePokemon', { evolve: sum(arrEntries,'pokemonsToTransfer') , pokemon: 'pokemon' })}</li>
+              <li>{t('candies-calculator.xpWon', { xp: sum(arrEntries,'xp') })}</li>
+              <li>{t('candies-calculator.xpWonLuckyEgg', { xp: sum(arrEntries,'xpWithLuckyEgg') })}</li>
+              <li>{t('candies-calculator.timeSpend', { time: sum(arrEntries,'time')/60 })}</li>
+              <li>{t('candies-calculator.timeLeft', { time: (30-sum(arrEntries,'time')/60) })}</li>
             </List>
           </Card>
         </div>
