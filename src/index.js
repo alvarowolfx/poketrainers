@@ -1,7 +1,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -44,9 +43,13 @@ const muiTheme = getMuiTheme({
   },
 });
 
+import routes from './routes';
+
+const Routes = routes;
+
 const AppWithTheme = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
-    <App/>
+    <Routes/>
   </MuiThemeProvider>
 )
 
