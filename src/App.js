@@ -47,7 +47,7 @@ function resolveLocale(){
   if(query){
     let params = parseQuery(query);
     let locale = params['locale'];
-    if(locale){
+    if(locale && humanizedLocales[locale]){
       return locale;
     }
   }
@@ -62,8 +62,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    let locale = resolveLocale();
-    console.log(locale);
+    let locale = resolveLocale();    
     let phrases = messages[locale];
     let polyglot = new Polyglot({ locale });
     polyglot.extend(phrases);
@@ -123,7 +122,7 @@ class App extends React.Component {
     let phrases = messages[locale];
     let polyglot = new Polyglot({ locale });
     polyglot.extend(phrases);
-    let t = polyglot.t.bind(polyglot);    
+    let t = polyglot.t.bind(polyglot);
     this.props.router.replace({ pathname: this.props.location.pathname, query: { locale } });
     this.setState({ t, locale, open: false });
   }
