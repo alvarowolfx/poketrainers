@@ -66,7 +66,7 @@ if ('serviceWorker' in navigator) {
  console.log('Service Worker is supported');
  require('../sw/sw.js');
  navigator.serviceWorker.register('sw.js').then(function(reg) {
-   console.log('Service Worker installed', reg);
+   console.log('Service Worker registered', reg);
  }).catch(function(err) {
    console.log('Some nasty error installing Service Worker', err);
  });
