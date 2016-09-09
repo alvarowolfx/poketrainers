@@ -61,6 +61,17 @@ var config = {
 };
 firebase.initializeApp(config);
 
+require('../sw/manifest.json');
+if ('serviceWorker' in navigator) {
+ console.log('Service Worker is supported');
+ require('../sw/sw.js');
+ navigator.serviceWorker.register('sw.js').then(function(reg) {
+   console.log('Service Worker installed', reg);
+ }).catch(function(err) {
+   console.log('Some nasty error installing Service Worker', err);
+ });
+}
+
 ReactDOM.render(
   <AppWithTheme />,
   document.getElementById('root')

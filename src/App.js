@@ -62,7 +62,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    let locale = resolveLocale();    
+    let locale = resolveLocale();
     let phrases = messages[locale];
     let polyglot = new Polyglot({ locale });
     polyglot.extend(phrases);
@@ -89,7 +89,7 @@ class App extends React.Component {
         user
       });
     });
-
+    
     if('applicationCache' in window){
       applicationCache.onupdateready = function() {
         this.setState({

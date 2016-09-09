@@ -61,6 +61,14 @@ module.exports = {
         query: require('./babel.prod')
       },
       {
+        test: /\.(js|json)$/,
+        include: paths.appSw,
+        loader: 'file',
+        query: {
+          name: '[name].[ext]'
+        }
+      },
+      {
         test: /\.css$/,
         include: [paths.appSrc, paths.appNodeModules],
         // Disable autoprefixer in css-loader itself:
@@ -146,6 +154,7 @@ module.exports = {
         '/about',
         '/'
       ],
+      exclude: [/\.map$/],
       output: 'poketrainers.manifest'
     })
   ]

@@ -55,6 +55,14 @@ module.exports = {
         query: require('./babel.dev')
       },
       {
+        test: /\.(js|json)$/,
+        include: paths.appSw,
+        loader: 'file',
+        query: {
+          name: '[name].[ext]'
+        }
+      },
+      {
         test: /\.css$/,
         include: [paths.appSrc, paths.appNodeModules],
         loader: 'style!css!postcss'
