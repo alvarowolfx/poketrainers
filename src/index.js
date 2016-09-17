@@ -53,12 +53,7 @@ const AppWithTheme = () => (
   </MuiThemeProvider>
 )
 
-var config = {
-  apiKey: "AIzaSyAjZ2DEzYIj1vyRqAz8hc0axsbVHXmzVyQ",
-  authDomain: "poketrainers-b1785.firebaseapp.com",
-  databaseURL: "https://poketrainers-b1785.firebaseio.com",
-  storageBucket: "poketrainers-b1785.appspot.com",
-};
+import config from './credentials.json';
 firebase.initializeApp(config);
 
 require('../sw/manifest.json');
