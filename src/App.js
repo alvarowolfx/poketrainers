@@ -89,7 +89,7 @@ class App extends React.Component {
         user
       });
     });
-    
+
     if('applicationCache' in window){
       applicationCache.onupdateready = function() {
         this.setState({
@@ -110,9 +110,8 @@ class App extends React.Component {
     });
   }
 
-  changeTab(tab){
-    let { locale } = this.state;
-    this.props.router.replace({ pathname: tab, query: { locale } });
+  changeTab(tab){    
+    this.props.router.replace(tab);
     this.setState({
       open: false
     });
@@ -123,7 +122,7 @@ class App extends React.Component {
     let polyglot = new Polyglot({ locale });
     polyglot.extend(phrases);
     let t = polyglot.t.bind(polyglot);
-    this.props.router.replace({ pathname: this.props.location.pathname, query: { locale } });
+    //this.props.router.replace({ pathname: this.props.location.pathname, query: { locale } });
     this.setState({ t, locale, open: false });
   }
 
