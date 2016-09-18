@@ -15,7 +15,7 @@
     },
     "egg-chart": {
       "title": "Egg pokemon chart",
-      "desc": "Know with pokemon can be obtained in each egg type"
+      "desc": "Know which pokemon can be obtained in each egg type"
     },
     "iv-calculator": {
       "title": "Individual Value (IVs) Calculator",
@@ -192,6 +192,103 @@
       "update": "Atualizar",
       "remove-all": "Limpar tudo",
       "loadMore": "Carregar mais pokemons"
+    }
+  },
+  "de": {
+    "nav": {
+      "language": "Sprache",
+      "iv-calculator": "IV-Rechner",
+      "pokemon-evolve": "Entwicklungs-Rechner",
+      "best-pokemon": "Beste Pokemons",
+      "candies-calculator": "Bonbon-Rechner",
+      "egg-chart": "Eier-Tabelle",
+      "about": "Über",
+      "feedback": "Gib Feedback",
+      "login": "Anmelden",
+      "loggedUser": "Angemeldet als %{name}",
+      "logout": "Abmelden"
+    },
+    "egg-chart": {
+      "title": "Pokemon Eier-Tabelle",
+      "desc": "Wissen welches Pokemon aus welchem Eier-Typ schlüpfen kann"
+    },
+    "iv-calculator": {
+      "title": "Individuelle Werte (IVs) Rechner",
+      "desc": "Wissen welches deiner Pokemon das Potential zum Champion hat.",
+      "maxLevelCP": "%{cp} WP auf max. Level",
+      "maxLevelHP": "%{hp} KP auf max. Level",
+      "info": {
+        "title": "Was sind Individuelle Werte (IVs) ?",
+        "pokemonStatusTitle": "Pokémon-Attribute",
+        "pokemonStatusDesc": "Jedes Pokémon hat Werte für Angriff, Verteidigung und Ausdauer, von denen sich intern die im Spiel sichtbaren Werte für KP und WP ableiten.",
+        "baseStatusTitle": "Grundwerte",
+        "baseStatusDesc": "Jede Pokémon-Spezies hat im Spiel feste Grundwerte. Die Individuellen Werte (IV), wie der Name sagt, sind für jedes Pokémon spezifisch und varrieren zwischen 0 und 15 für jedes Attribut.",
+        "perfectionTitle": "Perfektion",
+        "perfectionDesc": "Diese Metrik sagt aus, wie nah dein Pokémon an der Perfektion ist (also 15 IV Punkte in jedem Attribut zu haben).",
+        "simulationTitle": "Simulation mit einem Charizard"
+      }
+    },
+    "pokemon-evolve": {
+      "title": "Pokemon Entwicklungs-Rechner",
+      "desc": "Mit diesem Rechner kannst du schätzen, wie viele WP dein Pokémon nach einer Entwicklung haben wird. Dieser Rechner ist nicht so präzise wie der IV-Rechner, aber er liefert eine schnelle Vorschau auf die Ergebnisse einer Evolution.",
+      "candies": " zum Entwickeln",
+      "firstResult": "%{cp} WP, kann Level %{lvl} sein",
+      "firstResultUnknownLevel": "%{cp} WP, Level unbekannt",
+      "result": "%{minCp} WP to %{maxCp} WP"
+    },
+    "best-pokemon": {
+      "title": "Beste Pokemons",
+      "desc": "Wissen welche Pokémons für welche Situation - basierend auf ihren Grundwerten - am besten geeignet sind.",
+      "bestAttack": "Bester Angriff",
+      "bestDefense": "Beste Verteidigung",
+      "bestStamina": "Beste Ausdauer",
+      "bestOverall": "Beste insgesamt",
+      "bestCP": "Beste Wettkampfpunkte (WP)"
+    },
+    "candies-calculator": {
+      "title": "Bonbon-Rechner",
+      "desc": "Hier kann du das Verschicken deiner Pokémons zum Entwickeln und Sammeln von Erfahrungspunkten (XP) optimieren. Wähle ein Pokémon und wie viele solche Pokémons und Bonbons dieser Spezies du besitzt. Wir berechnen für dich wie viele XP du nach den Entwicklungen haben wirst und wie viel Zeit das dauern wird (wichtig, wenn du ein Glücksei einsetzen möchtest).",
+      "finalResultTitle": "Endergebnis",
+      "finalResultDesc": "Was du tun solltest und wie viel XP kannst du dadurch verdienen kannst.",
+      "instructions": "Anweisungen",
+      "transferPokemon": "Verschicke %{transfer} %{pokemon}(s)",
+      "evolvePokemon": "Entwickle %{evolve} %{pokemon}(s)",
+      "pokemonsLeft": "%{pokemonsLeft} %{pokemon}(s) übrig",
+      "candiesLeft": "%{candiesLeft} Bonbobs übrig",
+      "results": "Ergebnis",
+      "xpWon": "%{xp} XP erhalten",
+      "xpWonLuckyEgg": "%{xp} XP mit Glücksei erhalten",
+      "timeSpend": "%{time} Minuten verbraucht",
+      "timeLeft": "%{time} Minuten vom Glücksei übrig"
+    },
+    "about":{
+      "title": "Über die Website",
+      "desc": "<p><b>Poke Trainers</b> hatte seinen Entwicklungsbeginn im August 2016 um Pokemon Go Spielern zu helfen. Die Seite wurde inspiriert durch die großartige Arbeit von <a href=\"https://pokeassistant.com\" target=\"_blank\">Poke Assistant</a> und dem Zusammenschluss verschiedener Leute auf Reddit, Github und anderen Quellen, die wir nutzen, um diese Informationen bereitzustellen.</p> <p> Die Projektidee war es, eine Webseite mit moderner Benutzeroberfläche zu erstellen sowie mit Features, die auf ähnlichen Seiten nicht angeboten werden, z.B. Vergleich der IVs verschiedner Pokemon, Berechnung von XP durch Entwicklung verschiedener Pokemon und anderer Dinge.</p> <p> Ich hoffe, die Seite hilft Anfänger- und Profi-Spielern gleichermaßen. </p> Grüße,<br/> Alvaro Viebrantz",
+      "authorSite": "Webseite des Autors"
+    },
+    "common": {
+      "best": "Bestes",
+      "worst": "Schlechtestes",
+      "maxStatus": "Max. Wert",
+      "perfection": "Perfektion",
+      "attack": "Angriff",
+      "defense": "Verteidigung",
+      "stamina": "Ausdauer",
+      "noResultFound": "Kein Ergebnis gefunden.",
+      "updateMessage": "Eine neue Version der App wurde heruntergeladen",
+      "form": {
+        "pokemon": "Welches Pokemon ?",
+        "cp": "Wettkampfpunkte (WP)",
+        "stardust": "Sternenstaub benötigt zum Power-Up",
+        "quantity": "Anzahl Pokémon",
+        "candies": "Anzahl Bonbons"
+      }
+    },
+    "actions": {
+      "add": "+ Hinzufügen",
+      "update": "Aktualisieren",
+      "remove-all": "Alle entfernen",
+      "loadMore": "Lade mehr Pokemons"
     }
   }
 }
