@@ -25,6 +25,7 @@ import messages from './data/i18n.json';
 
 const humanizedLocales = {
   en: 'English',
+  de: 'Deutsch',
   'pt-br': 'Português'
 };
 
