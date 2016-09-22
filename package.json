@@ -52,7 +52,7 @@
     "material-ui": "^0.15.4",
     "node-polyglot": "^2.0.0",
     "offline-plugin": "^3.4.2",
-    "pokemong-go-iv-calculator": "andromedado/pokemon-go-iv-calculator",
+    "pokemong-go-iv-calculator": "alvarowolfx/pokemon-go-iv-calculator",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-ga": "^2.1.1",
